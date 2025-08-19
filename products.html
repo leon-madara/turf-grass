@@ -10,21 +10,21 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
     <!-- 1) Core -->
-    <link rel="stylesheet" href="public/css/base.css" />
-    <link rel="stylesheet" href="public/css/layout.css" />
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/layout.css" />
 
     <!-- 2) Shared components -->
-    <link rel="stylesheet" href="public/css/header.css" />
-    <link rel="stylesheet" href="public/css/footer.css" />
-    <link rel="stylesheet" href="public/css/toast.css" />
-    <link rel="stylesheet" href="public/css/cart.css" />
-    <link rel="stylesheet" href="public/css/components/broker-login.css" />
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/toast.css" />
+    <link rel="stylesheet" href="/css/cart.css" />
+    <link rel="stylesheet" href="/css/components/broker-login.css" />
 
     <!-- 3) Page styles (include only what's needed for THIS page) -->
-    <link rel="stylesheet" href="public/css/products.css" />
+    <link rel="stylesheet" href="/css/products.css" />
 
     <!-- 4) Modals / popups (after components, before HTML injection) -->
-    <link rel="stylesheet" href="public/css/modal.css" />
+    <link rel="stylesheet" href="/css/modal.css" />
 
 </head>
 
@@ -33,7 +33,7 @@
     <header class="header" id="navbar">
         <div class="container">
             <a href="index.html" class="logo" aria-label="Eastleigh Turf Grass">
-                <img src="public/assets/images/icons/mainLogo.png" alt="Eastleigh Turf Grass Logo" />
+                <img src="/assets/images/icons/mainLogo.png" alt="Eastleigh Turf Grass Logo" />
             </a>
 
             <nav class="nav" aria-label="Primary">
@@ -137,17 +137,7 @@
     <!-- Modal mount -->
     <div id="modalMount"></div>
     <div id="cartMount"></div>
-    <script src="public/js/utils.js" defer></script>
-    <script src="public/js/state/cartState.js" defer></script>
-    <script src="public/js/ui/cartPanel.js" defer></script>
-    <script src="public/js/ui/brokerLoginModal.js" defer></script>
-    <script src="public/js/config/whatsapp-config.js" defer></script>
-    <script src="public/js/services/whatsapp.js" defer></script>
-    <script src="public/js/components/cart.js" defer></script>
-    <script src="public/js/components/header.js" defer></script>
-    <script src="public/js/components/toast.js" defer></script>
-    <script src="public/js/ui/productCard.js" defer></script>
-    <script src="public/js/pages/products.js" defer></script>
+    <script type="module" src="/src/pages/products.js"></script>
 
 </body>
 

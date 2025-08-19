@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Broker Dashboard</title>
-        <link rel="stylesheet" href="../public/css/header.css">
-    <link rel="stylesheet" href="css/broker.css">
+        <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/broker/css/broker.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <header class="header" id="navbar">
         <div class="container">
             <a href="../index.html" class="logo" aria-label="Eastleigh Turf Grass">
-                <img src="../public/assets/images/icons/mainLogo.png" alt="Eastleigh Turf Grass Logo" />
+                <img src="/assets/images/icons/mainLogo.png" alt="Eastleigh Turf Grass Logo" />
             </a>
 
             <nav class="nav" aria-label="Primary">
@@ -289,15 +289,11 @@
     </div>
 
     <div id="cartMount"></div>
-    <script src="../public/js/ui/cartPanel.js" defer></script>
-    <script src="../public/js/config/whatsapp-config.js"></script>
-    <script src="../public/js/services/whatsapp.js"></script>
-    <script src="../public/js/components/header.js"></script>
-    <script src="js/broker.js"></script>
-    <script src="js/modules/orders.js" defer></script>
-    <script src="js/modules/preorders.js" defer></script>
-    <script src="js/modules/inquiry.js" defer></script>
-    <script src="js/dashboard.js"></script>
+    <script type="module" src="/broker/js/broker.js"></script>
+    <script type="module" src="/broker/js/dashboard.js"></script>
+    <script type="module" src="/broker/js/modules/orders.js"></script>
+    <script type="module" src="/broker/js/modules/preorders.js"></script>
+    <script type="module" src="/broker/js/modules/inquiry.js"></script>
     <script src="../public/js/utils.js" defer></script>
     <script src="../public/js/ui/brokerLoginModal.js" defer></script>
 </body>
