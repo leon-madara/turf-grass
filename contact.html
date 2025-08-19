@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact • Eastleigh Turf Grass</title>
+    <!-- 1) Core -->
+    <link rel="stylesheet" href="/turf-grass/css/base.css" />
+    <link rel="stylesheet" href="/turf-grass/css/layout.css" />
+
+    <!-- 2) Shared components -->
+    <link rel="stylesheet" href="/turf-grass/css/header.css" />
+    <link rel="stylesheet" href="/turf-grass/css/footer.css" />
+    <link rel="stylesheet" href="/turf-grass/css/toast.css" />
+    <link rel="stylesheet" href="/turf-grass/css/cart.css" />
+    <link rel="stylesheet" href="/turf-grass/css/components/broker-login.css" />
+
+    <!-- 3) Page styles (include only what's needed for THIS page) -->
+    <link rel="stylesheet" href="/turf-grass/css/contact.css" />
+    <!-- <link rel="stylesheet" href="public/css/home.css" />
+    <link rel="stylesheet" href="public/css/hero.css" /> -->
+    <!-- or -->
+    <!-- <link rel="stylesheet" href="public/css/products.css" /> -->
+    <!-- <link rel="stylesheet" href="public/css/about.css" /> -->
+
+    <!-- 4) Modals / popups (after components, before HTML injection) -->
+    
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+  <script type="module" crossorigin src="/turf-grass/assets/contact-Dk_RgzBR.js"></script>
+  <link rel="modulepreload" crossorigin href="/turf-grass/assets/modulepreload-polyfill-B5Qt9EMX.js">
+</head>
+
+<body class="contact-page">
+    <!-- Header -->
+    <header class="header" id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo" aria-label="Eastleigh Turf Grass">
+                <img src="/turf-grass/assets/images/icons/mainLogo.png" alt="Eastleigh Turf Grass Logo" />
+            </a>
+
+            <nav class="nav" aria-label="Primary">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link is-active">Contact</a>
+            </nav>
+            
+            <!-- Hamburger Menu Button (replaces logo on mobile) -->
+            <button class="hamburger-menu" id="hamburgerMenu" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="header-cta">
+                <a href="#" id="cartIconBtn" class="cart-btn" aria-label="Shopping Cart">
+                    <svg viewBox="0 0 640 640" class="cart-icon" aria-hidden="true">
+                        <path
+                            d="M24 48C10.7 48 0 58.7 0 72C0 85.3 10.7 96 24 96L69.3 96C73.2 96 76.5 98.8 77.2 102.6L129.3 388.9C135.5 423.1 165.3 448 200.1 448L456 448C469.3 448 480 437.3 480 424C480 410.7 469.3 400 456 400L200.1 400C188.5 400 178.6 391.7 176.5 380.3L171.4 352L475 352C505.8 352 532.2 330.1 537.9 299.8L568.9 133.9C572.6 114.2 557.5 96 537.4 96L124.7 96L124.3 94C119.5 67.4 96.3 48 69.2 48L24 48zM208 576C234.5 576 256 554.5 256 528C256 501.5 234.5 480 208 480C181.5 480 160 501.5 160 528C160 554.5 181.5 576 208 576zM432 576C458.5 576 480 554.5 480 528C480 501.5 458.5 480 432 480C405.5 480 384 501.5 384 528C384 554.5 405.5 576 432 576z" />
+                    </svg>
+                    <span id="cartCount" class="cart-count">0</span>
+                </a>
+                <a href="#" class="dealer-login-btn icon-only" id="dealerLoginBtn" aria-label="Dealer Login"><i class="fa-solid fa-right-to-bracket"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Overlay -->
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="products.html" class="nav-link">Products</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link is-active">Contact</a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="contact-hero">
+        <div class="container">
+            <h1>Let’s Plan Your Turf Project</h1>
+            <p>Tell us about your space—residential, playground, sports, or hospitality—and we’ll recommend the right
+                turf, budget, and timeline.</p>
+        </div>
+    </section>
+
+    <!-- Contact grid -->
+    <main class="contact-main">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- Form -->
+                <form class="card contact-form" id="contactForm" novalidate>
+                    <h2>Request a Quote</h2>
+                    <p class="muted">Share a few details and we’ll get back to you with a tailored plan.</p>
+
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label for="fullName">Full name</label>
+                            <input id="fullName" name="fullName" type="text" required placeholder="Jane Doe" />
+                        </div>
+                        <div class="input-group">
+                            <label for="email">Email</label>
+                            <input id="email" name="email" type="email" required placeholder="jane@example.com" />
+                        </div>
+                        <div class="input-group">
+                            <label for="phone">Phone</label>
+                            <input id="phone" name="phone" type="tel" placeholder="+254 7xx xxx xxx" />
+                        </div>
+                        <div class="input-group">
+                            <label for="projectType">Project type</label>
+                            <select id="projectType" name="projectType" required>
+                                <option value="">Select…</option>
+                                <option>Residential Lawn</option>
+                                <option>Playground</option>
+                                <option>Sports Facility</option>
+                                <option>Hospitality / Commercial</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="areaSize">Approx. area (m²)</label>
+                            <input id="areaSize" name="areaSize" type="number" min="0" step="0.1"
+                                placeholder="e.g. 120" />
+                        </div>
+                        <div class="input-group">
+                            <label for="location">Location / Site</label>
+                            <input id="location" name="location" type="text" placeholder="Estate, town/city" />
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="message">Project details</label>
+                        <textarea id="message" name="message" rows="5"
+                            placeholder="Drainage, traffic level, timelines…"></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="attachment">Attach plan/photo (optional)</label>
+                        <input id="attachment" name="attachment" type="file" accept=".jpg,.jpeg,.png,.pdf" />
+                    </div>
+
+                    <div class="consent">
+                        <input id="consent" type="checkbox" required />
+                        <label for="consent">I agree to be contacted regarding my enquiry.</label>
+                    </div>
+                    <input type="text" name="company" id="company" class="hp" aria-hidden="true" tabindex="-1"
+                        autocomplete="off" />
+
+                    <div class="actions">
+                        <button type="submit" class="btn btn-hero">Send Request</button>
+                        <a href="products.html" class="btn btn-outline">Browse Products</a>
+                    </div>
+                </form>
+
+                <!-- Map / Gallery -->
+                <aside class="card contact-aside">
+                    <div class="map-placeholder" aria-label="Project Map / Gallery"></div>
+                    <div class="mini-gallery">
+                        <img src="/turf-grass/assets/images/products/EnduraTurf.png" alt="Residential install" />
+                        <img src="/turf-grass/assets/images/products/FlexTurf.png" alt="Playground install" />
+                        <img src="/assets/images/products/UltraTurfPlay.png" alt="Sports install" />
+                        <img src="/assets/images/products/UltraTurfPlay.png" alt="Sports install" />
+                        <img src="/assets/images/products/UltraTurfPlay.png" alt="Sports install" />
+                        <img src="/assets/images/products/UltraTurfPlay.png" alt="Sports install" />
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- FAQ + CTA sections can follow here -->
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; <span id="year"></span> Eastleigh Turfgrass. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Toast -->
+    <div id="toast" class="toast" aria-live="polite" aria-atomic="true">
+        <strong class="toast-title"></strong>
+        <div class="toast-description"></div>
+    </div>
+
+    <!-- WhatsApp Service -->
+
+    <!-- Modal mount -->
+    <div id="modalMount"></div>
+    <div id="cartMount"></div>
+
+    <!-- 1) Core utilities/config/state -->
+    <!-- All obsolete script tags removed. Only Vite module import remains. -->
+
+</body>
+
+</html>
