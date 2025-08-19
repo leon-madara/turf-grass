@@ -7,7 +7,7 @@ import { Cart } from '../state/cartState.js';
  */
 export async function mountCartPanel(mountSelector = '#cartMount') {
   try {
-    await loadHTML(mountSelector, 'public/partials/cart.html');
+    await loadHTML(mountSelector, '/turf-grass/partials/cart.html');
     wireCartUI();
   } catch (error) {
     console.error('Error mounting cart panel:', error);
@@ -100,7 +100,7 @@ if (!document.body.classList.contains('products-page')) {
     
     try {
       // Step 1: Load the modal HTML
-      await loadHTML('#cartMount', 'public/partials/cart-modal.html');
+      await loadHTML('#cartMount', '/turf-grass/partials/cart-modal.html');
       console.log('Cart modal HTML loaded successfully');
       
       // Step 2: Add a small delay to ensure DOM is ready

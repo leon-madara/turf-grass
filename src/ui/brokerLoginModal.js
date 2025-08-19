@@ -7,7 +7,7 @@ import { loadHTML } from '../utils.js';
   const $ = (s, c = document) => c.querySelector(s);
 
   let modal, form, user, pass;
-  const PARTIAL_PATH = '/partials/broker-login.html';
+  const PARTIAL_PATH = '/turf-grass/partials/broker-login.html';
 
   function open() {
     if (!modal) return;
@@ -63,7 +63,7 @@ import { loadHTML } from '../utils.js';
     const Auth = window.AuthState;
     if (Auth?.login) Auth.login({ role: 'broker', name: user.value.trim() });
 
-    window.location.href = '/broker/index.html';
+    window.location.href = '/turf-grass/broker/index.html';
   }
 
   function submit(e) {

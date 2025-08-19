@@ -4,7 +4,7 @@
         "name": "Premium Turf 15mm",
         "thickness": "15mm",
         "price": 1000,
-        "image": "/assets/images/products/EnduraTurf.png",
+        "image": "/turf-grass/assets/images/products/EnduraTurf.png",
         "useCases": [
             "Residential",
             "Light Traffic",
@@ -23,7 +23,7 @@
         "name": "Sports Turf 20mm",
         "thickness": "20mm",
         "price": 1100,
-        "image": "/assets/images/products/FlexTurf.png",
+        "image": "/turf-grass/assets/images/products/FlexTurf.png",
         "useCases": [
             "Sports",
             "Playgrounds",
@@ -42,7 +42,7 @@
         "name": "Luxury Turf 30mm",
         "thickness": "30mm",
         "price": 1300,
-        "image": "/assets/images/products/VelvetGreen.png",
+        "image": "/turf-grass/assets/images/products/VelvetGreen.png",
         "useCases": [
             "Premium Residential",
             "Commercial",
@@ -61,7 +61,7 @@
         "name": "Elite Turf 35mm",
         "thickness": "35mm",
         "price": 1500,
-        "image": "/assets/images/products/UltraTurf.png",
+        "image": "/turf-grass/assets/images/products/UltraTurf.png",
         "useCases": [
             "High-end Commercial",
             "Sports Facilities",
@@ -80,7 +80,7 @@
         "name": "Professional Grade 40mm",
         "thickness": "40mm",
         "price": 1600,
-        "image": "/assets/images/products/ProfessionalGrade.png",
+        "image": "/turf-grass/assets/images/products/ProfessionalGrade.png",
         "useCases": [
             "Professional Sports",
             "Commercial",
@@ -99,7 +99,7 @@
         "name": "Championship Turf 45mm",
         "thickness": "45mm",
         "price": 1800,
-        "image": "/assets/images/products/ProfitGrass.png",
+        "image": "/turf-grass/assets/images/products/ProfitGrass.png",
         "useCases": [
             "Championship",
             "Premium Sports",

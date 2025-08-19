@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/leon-madara/turf-grass#readme",
   "devDependencies": {
+    "gh-pages": "^6.3.0",
     "vite": "^7.1.2"
   }
 }

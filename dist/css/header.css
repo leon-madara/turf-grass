@@ -1,0 +1,248 @@
+/* =========================================
+   HEADER • Glass navbar
+========================================= */
+
+.header {
+    position: fixed;
+    top: 0.5rem;
+    left: 0.5rem;
+    right: 0.75rem;
+    height: var(--header-h);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    /* background: linear-gradient(180deg, rgba(3, 50, 18, .65), rgba(5, 32, 14, .55)); */
+    background: transparent;
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+    border: 1.5px solid hsla(55, 19%, 40%, 0.3);
+    border-radius: 0.75rem;
+}
+
+.header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.logo img {
+    height: 36px;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-inline: auto;
+    /* centers the group between logo and actions */
+}
+
+.nav-link {
+    padding: .5rem .9rem;
+    border-radius: .75rem;
+    font-weight: 700;
+    color: #e8f1ec;
+    opacity: .9;
+    transition: background var(--transition), opacity var(--transition);
+}
+
+.nav-link:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, .08);
+}
+
+.nav-link.is-active {
+    background: rgba(219, 255, 25, .18);
+}
+
+.header-cta {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+}
+
+.cart-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, .12);
+    background: rgba(255, 255, 255, .06);
+}
+
+.cart-btn:hover {
+    background: rgba(255, 255, 255, .1);
+}
+
+.cart-icon {
+    width: 18px;
+    height: 18px;
+    fill: #a9f5c9;
+}
+
+.cart-count {
+    margin-left: .25rem;
+    min-width: 18px;
+    height: 18px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 999px;
+    background: #2d6a4f;
+    color: #fff;
+    font-size: .7rem;
+    padding-inline: .35rem;
+}
+
+.broker-btn {
+    padding: .5rem .9rem;
+    border-radius: .75rem;
+    font-weight: 700;
+    background: #2d6a4f;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, .12);
+}
+
+.broker-btn:hover {
+    filter: brightness(1.06);
+}
+
+/* Dealer Login Button Styles */
+.dealer-login-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.2rem;
+    border-radius: 10px;
+    border: 1.5px solid #e5e1d8;
+    background: #fff;
+    color: #222;
+    font-weight: 600;
+    font-size: 1.08rem;
+    box-shadow: none;
+    transition: background 0.18s, color 0.18s, border-color 0.18s;
+    cursor: pointer;
+    text-decoration: none;
+}
+.dealer-login-btn i {
+    font-size: 1.2em;
+    color: #222;
+    margin-right: 0.4em;
+}
+.dealer-login-btn:hover,
+.dealer-login-btn:active {
+    background: #cbb892;
+    color: #222;
+    border-color: #cbb892;
+}
+.dealer-login-btn:hover i,
+.dealer-login-btn:active i {
+    color: #222;
+}
+/* Icon-only version for non-home pages */
+.dealer-login-btn.icon-only {
+    padding: 0.5rem 0.7rem;
+    font-size: 1.2rem;
+}
+.dealer-login-btn.icon-only span,
+.dealer-login-btn.icon-only .dealer-login-text {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .nav {
+        gap: 1rem;
+    }
+}
+
+/* Hamburger Menu */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+.hamburger-menu span {
+    width: 100%;
+    height: 3px;
+    background: #e8f1ec;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.hamburger-menu.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Mobile Navigation */
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(3, 50, 18, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.mobile-nav.active {
+    transform: translateX(0);
+}
+
+.mobile-nav .nav-link {
+    font-size: 1.5rem;
+    padding: 1rem 2rem;
+    margin: 0.5rem 0;
+    border-radius: 1rem;
+    text-align: center;
+    min-width: 200px;
+}
+
+@media (max-width: 720px) {
+    .nav {
+        display: none;
+    }
+    
+    .logo {
+        display: none;
+    }
+    
+    .hamburger-menu {
+        display: flex;
+    }
+    
+    .header-cta {
+        gap: 0.5rem;
+    }
+    
+    .broker-btn {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.9rem;
+    }
+}
