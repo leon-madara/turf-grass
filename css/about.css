@@ -1,0 +1,510 @@
+/* =========================================
+   ABOUT • Modern glassmorphism design
+========================================= */
+/* @import url('public/css/base.css'); */
+
+/* Universal box-sizing for all elements */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Main page selector: apply a light, soft gradient background everywhere */
+.about-page {
+    background: linear-gradient(135deg, hsl(93,21%,92%) 0%, hsl(51,26%,95%) 100%);
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+/* Hero Section */
+.about-hero {
+    position: relative;
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    margin-top: 0;
+    background: transparent; /* Ensures the main page gradient shows through */
+}
+
+.hero-background {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -2;
+}
+
+/* Decorative overlay: subtle gradient */
+.hero-background::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, hsl(93, 21%, 92%) 0%, hsl(51, 26%, 95%) 100%);
+    opacity: 0.3;
+    z-index: -1;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, hsl(93, 21%, 92%) 0%, hsl(51, 26%, 95%) 100%);
+    opacity: 0.7;
+    z-index: -1;
+}
+
+/* Content in hero */
+.hero-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* Title with gradient text */
+.hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    background: linear-gradient(90deg, #2d6a4f 0%, #b8e61e 60%, #e0c36e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    margin-bottom: 1rem;
+    text-align: center;
+    letter-spacing: -1px;
+    text-shadow: 0 2px 20px rgba(219,255,25,0.3);
+}
+
+.hero-subtitle {
+    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+    color: var(--fg, #1a3d1f);
+    margin-bottom: 3rem;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* Stats */
+.hero-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.stat-item {
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(200,200,200,0.22);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 24px rgba(44,62,80,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 32px rgba(44,62,80,0.12);
+}
+
+.stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--accent, #2d6a4f);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--muted, #4f5951);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+
+/* Story Section */
+.about-story {
+    padding: 6rem 0;
+    background: linear-gradient(180deg, #0f1f12 0%, #162a1a 100%);
+}
+
+.story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.section-title {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+}
+
+.story-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--muted);
+    margin-bottom: 3rem;
+}
+
+.features-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.feature-card {
+    background: var(--surface);
+    border: 1px solid var(--surface-2);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    box-shadow: var(--shadow-1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-2);
+}
+
+.feature-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--accent), #b8e61e);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: #0d0f0e;
+}
+
+.feature-card h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--fg);
+    margin-bottom: 0.5rem;
+}
+
+.feature-card p {
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Visual Card */
+.visual-card {
+    background: var(--surface);
+    border: 1px solid var(--surface-2);
+    border-radius: var(--radius);
+    padding: 2rem;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-1);
+    position: sticky;
+    top: 2rem;
+}
+
+.visual-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--fg);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.facts-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.fact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.2s ease;
+}
+
+.fact-item:hover {
+    transform: translateX(5px);
+}
+
+.fact-icon {
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(219, 255, 25, 0.1);
+    border-radius: 8px;
+}
+
+.fact-content {
+    flex: 1;
+}
+
+.fact-content strong {
+    display: block;
+    color: var(--fg);
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+}
+
+.fact-content span {
+    font-size: 0.9rem;
+    color: var(--muted);
+}
+
+/* Mission Section */
+.about-mission {
+    padding: 6rem 0;
+    background: linear-gradient(180deg, #162a1a 0%, #0f1f12 100%);
+}
+
+.mission-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.mission-text {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--muted);
+    margin-bottom: 3rem;
+}
+
+.mission-values {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.value-item {
+    background: var(--surface);
+    border: 1px solid var(--surface-2);
+    border-radius: var(--radius);
+    padding: 2rem;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    box-shadow: var(--shadow-1);
+    transition: transform 0.3s ease;
+}
+
+.value-item:hover {
+    transform: translateY(-5px);
+}
+
+.value-item h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 1rem;
+}
+
+.value-item p {
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .story-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .visual-card {
+        position: static;
+        margin-top: 2rem;
+    }
+    
+    .hero-stats {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 1rem;
+    }
+    
+    .stat-item {
+        padding: 1rem;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .mission-values {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-hero {
+        min-height: 50vh;
+    }
+    
+    .hero-content {
+        padding: 1rem;
+    }
+    
+    .hero-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .features-grid {
+        gap: 1rem;
+    }
+    
+    .feature-card {
+        padding: 1rem;
+    }
+    
+    .visual-card {
+        padding: 1.5rem;
+    }
+    
+    .fact-item {
+        padding: 0.75rem;
+    }
+    
+    .value-item {
+        padding: 1.5rem;
+    }
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Smooth animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-content,
+.story-content,
+.mission-content {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.feature-card,
+.fact-item,
+.value-item {
+    animation: fadeInUp 0.6s ease-out;
+    animation-fill-mode: both;
+}
+
+.feature-card:nth-child(1) { animation-delay: 0.1s; }
+.feature-card:nth-child(2) { animation-delay: 0.2s; }
+.feature-card:nth-child(3) { animation-delay: 0.3s; }
+
+.fact-item:nth-child(1) { animation-delay: 0.1s; }
+.fact-item:nth-child(2) { animation-delay: 0.2s; }
+.fact-item:nth-child(3) { animation-delay: 0.3s; }
+.fact-item:nth-child(4) { animation-delay: 0.4s; }
+
+.value-item:nth-child(1) { animation-delay: 0.1s; }
+.value-item:nth-child(2) { animation-delay: 0.2s; }
+.value-item:nth-child(3) { animation-delay: 0.3s; }
+
+/* === About Page Linear Gradient Background === */
+.about-page {
+    background: hsl(108, 100%, 98%) !important;
+    min-height: 100vh;
+    top: 0;
+}
+
+.about-hero {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* Remove any top padding/margin from main or container if present */
+main, .container {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+/* === Gradient Title (like homepage) === */
+.hero-title, .about-gradient-title {
+    background: linear-gradient(90deg, #2d6a4f 0%, #b8e61e 60%, #e0c36e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    font-weight: 800;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1rem;
+    text-align: center;
+    letter-spacing: -1px;
+}
+
+/* === Gradient Cards (like homepage application cards) === */
+.feature-card, .visual-card, .value-item {
+    background: linear-gradient(135deg, #e0f7ef 0%, #f7fbe7 100%);
+    border: none;
+    box-shadow: 0 8px 32px rgba(44, 62, 80, 0.08), 0 1.5px 6px rgba(44, 62, 80, 0.04);
+}
+
+/* Optional: Add colored gradients for each card type for more vibrancy */
+.feature-card:nth-child(1) {
+    background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+}
+.feature-card:nth-child(2) {
+    background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+}
+.feature-card:nth-child(3) {
+    background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+}
+.value-item:nth-child(1) {
+    background: linear-gradient(135deg, #f9f586 0%, #e0c36e 100%);
+}
+.value-item:nth-child(2) {
+    background: linear-gradient(135deg, #b8e61e 0%, #e0f7ef 100%);
+}
+.value-item:nth-child(3) {
+    background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+}
+.visual-card {
+    background: linear-gradient(135deg, #e0f7ef 0%, #f7fbe7 100%);
+}
