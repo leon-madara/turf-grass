@@ -6,7 +6,7 @@
   const $ = (s, c = document) => c.querySelector(s);
 
   let modal, form, user, pass;
-  const PARTIAL_PATH = 'public/partials/broker-login.html';
+  const PARTIAL_PATH = '/turf-grass/partials/broker-login.html';
 
   function open() {
     if (!modal) return;

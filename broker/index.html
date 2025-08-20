@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Broker Dashboard</title>
-        <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/broker/css/broker.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="css/broker.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
+
 <body>
     <header class="header" id="navbar">
         <div class="container">
@@ -21,7 +23,7 @@
                 <a href="../about.html" class="nav-link">About</a>
                 <a href="../contact.html" class="nav-link">Contact</a>
             </nav>
-            
+
             <!-- Hamburger Menu Button (replaces logo on mobile) -->
             <button class="hamburger-menu" id="hamburgerMenu" aria-label="Toggle navigation menu">
                 <span></span>
@@ -32,8 +34,7 @@
             <div class="header-cta">
                 <a href="#" class="cart-btn" aria-label="Shopping Cart">
                     <svg viewBox="0 0 640 640" class="cart-icon" aria-hidden="true">
-                        <path
-                            d="M24 48C10.7 48 0 58.7 0 72C0 85.3 10.7 96 24 96L69.3 96C73.2 96 76.5 98.8 77.2 102.6L129.3 388.9C135.5 423.1 165.3 448 200.1 448L456 448C469.3 448 480 437.3 480 424C480 410.7 469.3 400 456 400L200.1 400C188.5 400 178.6 391.7 176.5 380.3L171.4 352L475 352C505.8 352 532.2 330.1 537.9 299.8L568.9 133.9C572.6 114.2 557.5 96 537.4 96L124.7 96L124.3 94C119.5 67.4 96.3 48 69.2 48L24 48zM208 576C234.5 576 256 554.5 256 528C256 501.5 234.5 480 208 480C181.5 480 160 501.5 160 528C160 554.5 181.5 576 208 576zM432 576C458.5 576 480 554.5 480 528C480 501.5 458.5 480 432 480C405.5 480 384 501.5 384 528C384 554.5 405.5 576 432 576z" />
+                        <path d="M24 48C10.7 48 0 58.7 0 72C0 85.3 10.7 96 24 96L69.3 96C73.2 96 76.5 98.8 77.2 102.6L129.3 388.9C135.5 423.1 165.3 448 200.1 448L456 448C469.3 448 480 437.3 480 424C480 410.7 469.3 400 456 400L200.1 400C188.5 400 178.6 391.7 176.5 380.3L171.4 352L475 352C505.8 352 532.2 330.1 537.9 299.8L568.9 133.9C572.6 114.2 557.5 96 537.4 96L124.7 96L124.3 94C119.5 67.4 96.3 48 69.2 48L24 48zM208 576C234.5 576 256 554.5 256 528C256 501.5 234.5 480 208 480C181.5 480 160 501.5 160 528C160 554.5 181.5 576 208 576zM432 576C458.5 576 480 554.5 480 528C480 501.5 458.5 480 432 480C405.5 480 384 501.5 384 528C384 554.5 405.5 576 432 576z" />
                     </svg>
                     <span id="cartCount" class="cart-count">0</span>
                 </a>
@@ -54,7 +55,15 @@
     <div class="dashboard-container">
         <!-- Header Section -->
         <header class="dashboard-header">
-            <h1>Broker Dashboard</h1>
+            <div class="dashboard-title">
+                <div class="title-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="title-text">
+                    <h1>Broker Dashboard</h1>
+                    <p>Manage orders, preorders, inquiries, and profile details</p>
+                </div>
+            </div>
         </header>
         <section class="summary-card">
             <div class="summary-row">
@@ -106,7 +115,7 @@
             <div id="orders-content" class="tab-content active">
                 <h2><i class="fas fa-shopping-cart"></i> Regular Orders</h2>
                 <p class="order-description">Order items from available stock for immediate processing.</p>
-                
+
                 <div class="order-table-container">
                     <table class="order-table" id="orderTable">
                         <thead>
@@ -122,19 +131,19 @@
                             <!-- Dynamic order items will be injected here -->
                         </tbody>
                     </table>
-                    
+
                     <div class="empty-state" id="emptyOrderState">
                         <i class="fas fa-shopping-cart"></i>
                         <p>No items added yet. Click 'Add Item' to start building your order.</p>
                     </div>
                 </div>
-                
+
                 <div class="order-summary">
                     <div class="order-total">
                         <strong>Total: KES <span id="orderTotal">0.00</span></strong>
                     </div>
                 </div>
-                
+
                 <!-- After the order table, before the Add Item/Submit Order buttons -->
                 <!-- Payment Summary Section with input -->
                 <div class="payment-summary-section">
@@ -147,7 +156,7 @@
                         <span class="payment-value credit" id="credit-balance">0.00</span>
                     </div>
                 </div>
-                
+
                 <div class="action-buttons">
                     <button class="btn btn-secondary" id="addItemBtn">
                         <i class="fas fa-plus"></i>
@@ -163,7 +172,7 @@
             <div id="preorders-content" class="tab-content">
                 <h2><i class="fas fa-clock"></i> Preorders</h2>
                 <p class="preorder-description">Place preorders for upcoming stock arrivals and special items.</p>
-                
+
                 <div class="preorder-table-container">
                     <table class="preorder-table" id="preorderTable">
                         <thead>
@@ -181,19 +190,19 @@
                             <!-- Dynamic preorder items will be injected here -->
                         </tbody>
                     </table>
-                    
+
                     <div class="empty-state" id="emptyPreorderState">
                         <i class="fas fa-clock"></i>
                         <p>No preorder items added yet. Preorders are for special items not yet in stock.</p>
                     </div>
                 </div>
-                
+
                 <div class="preorder-summary">
                     <div class="preorder-total">
                         <strong>Total: KES <span id="preorderTotal">0.00</span></strong>
                     </div>
                 </div>
-                
+
                 <div class="action-buttons">
                     <button class="btn btn-secondary" id="addPreorderBtn">
                         <i class="fas fa-plus"></i>
@@ -209,7 +218,7 @@
             <div id="inquiry-content" class="tab-content">
                 <h2><i class="fas fa-comments"></i> Price Inquiries</h2>
                 <p class="inquiry-description">Submit price inquiries for bulk orders or special pricing.</p>
-                
+
                 <div class="inquiry-table-container">
                     <table class="inquiry-table" id="inquiryTable">
                         <thead>
@@ -225,13 +234,13 @@
                             <!-- Dynamic inquiry items will be injected here -->
                         </tbody>
                     </table>
-                    
+
                     <div class="empty-state" id="emptyInquiryState">
                         <i class="fas fa-comments"></i>
                         <p>No inquiries added yet. Click 'Add Inquiry' to start.</p>
                     </div>
                 </div>
-                
+
                 <div class="action-buttons">
                     <button class="btn btn-secondary" id="addInquiryBtn">
                         <i class="fas fa-plus"></i>
@@ -289,12 +298,13 @@
     </div>
 
     <div id="cartMount"></div>
-    <script type="module" src="/broker/js/broker.js"></script>
-    <script type="module" src="/broker/js/dashboard.js"></script>
-    <script type="module" src="/broker/js/modules/orders.js"></script>
-    <script type="module" src="/broker/js/modules/preorders.js"></script>
-    <script type="module" src="/broker/js/modules/inquiry.js"></script>
-    <script src="../public/js/utils.js" defer></script>
-    <script src="../public/js/ui/brokerLoginModal.js" defer></script>
+    <script type="module" src="js/broker.js"></script>
+    <script type="module" src="js/dashboard.js"></script>
+    <script type="module" src="js/modules/orders.js"></script>
+    <script type="module" src="js/modules/preorders.js"></script>
+    <script type="module" src="js/modules/inquiry.js"></script>
+    <script src="/js/utils.js" defer></script>
+    <script src="/js/ui/brokerLoginModal.js" defer></script>
 </body>
+
 </html>

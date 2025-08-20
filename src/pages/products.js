@@ -1,5 +1,10 @@
-import { Cart } from '../state/cartState.js';
-import { createProductCard } from '../ui/productCard.js';
+import {
+    Cart
+} from '../state/cartState.js';
+import {
+    createProductCard
+} from '../ui/productCard.js';
+import '../components/header.js';
 // Products Page Controller
 (() => {
     document.addEventListener('DOMContentLoaded', async () => {
@@ -7,7 +12,9 @@ import { createProductCard } from '../ui/productCard.js';
         if (!grid) return;
 
         try {
-            const res = await fetch('/turf-grass/data/products.json', { cache: 'no-cache' });
+            const res = await fetch('/turf-grass/data/products.json', {
+                cache: 'no-cache'
+            });
             const products = await res.json();
 
             products.forEach((product) => {

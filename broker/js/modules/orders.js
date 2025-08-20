@@ -5,16 +5,17 @@
     let nextItemId = 1;
 
     // Initialize the orders module
-    function init() {
-        loadProducts();
+    async function init() {
+        await loadProducts();
         updateUI();
     }
 
     // Load products from the main site's JSON
     async function loadProducts() {
         try {
-            const response = await fetch('../public/data/products.json');
+            const response = await fetch('/turf-grass/data/products.json');
             products = await response.json();
+            console.log('Products loaded:', products.length, 'products');
         } catch (error) {
             console.error('Failed to load products:', error);
             showToast('Failed to load products', 'error');
@@ -35,7 +36,7 @@
         orderItems.push(item);
         updateUI();
         showToast('Item added to order', 'success');
-        
+
         // Update cart count
         if (window.BrokerDashboard && window.BrokerDashboard.updateCartCount) {
             window.BrokerDashboard.updateCartCount();
@@ -47,7 +48,7 @@
         orderItems = orderItems.filter(item => item.id !== itemId);
         updateUI();
         showToast('Item removed from order', 'success');
-        
+
         // Update cart count
         if (window.BrokerDashboard && window.BrokerDashboard.updateCartCount) {
             window.BrokerDashboard.updateCartCount();
@@ -120,13 +121,19 @@
                             // Only update the total cell, not the whole table
                             const totalCell = quantityInput.closest('tr').querySelector('.order-field strong');
                             if (totalCell) {
-                                totalCell.textContent = itemObj.total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                                totalCell.textContent = itemObj.total.toLocaleString('en-US', {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                });
                             }
                             // Also update the order total
                             const orderTotal = document.getElementById('orderTotal');
                             if (orderTotal) {
                                 const total = calculateTotal();
-                                orderTotal.textContent = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                                orderTotal.textContent = total.toLocaleString('en-US', {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                });
                             }
                         }
                     });
@@ -154,11 +161,16 @@
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
         });
+
+        // Update credit balance when order total changes
+        if (window.paymentSummaryHandler && window.paymentSummaryHandler.updateCreditBalance) {
+            window.paymentSummaryHandler.updateCreditBalance();
+        }
     }
 
     // Create order row HTML
     function createOrderRow(item) {
-        const productOptions = products.map(product => 
+        const productOptions = products.map(product =>
             `<option value="${product.id}" ${item.productId === product.id ? 'selected' : ''}>
                 ${product.name} (${product.thickness})
             </option>`
@@ -210,6 +222,41 @@
         `;
     }
 
-    // Add any other module exports or initialization here if needed
+    // Show toast notification
+    function showToast(message, type = 'success') {
+        const toast = document.getElementById('toast');
+        const toastMessage = toast.querySelector('.toast-message');
+
+        if (toast && toastMessage) {
+            toast.className = `toast ${type}`;
+            toastMessage.textContent = message;
+            toast.classList.remove('hidden');
+
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+    }
+
+    // Initialize event listeners
+    function initEventListeners() {
+        const addItemBtn = document.getElementById('addItemBtn');
+        if (addItemBtn) {
+            addItemBtn.addEventListener('click', addItem);
+        }
+    }
+
+    // Initialize the module when DOM is loaded
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', async () => {
+            await init();
+            initEventListeners();
+        });
+    } else {
+        (async () => {
+            await init();
+            initEventListeners();
+        })();
+    }
 
 })();

@@ -259,7 +259,8 @@
     gap: 0.75rem;
 }
 
-.btn-primary, .btn-secondary {
+.btn-primary,
+.btn-secondary {
     flex: 1;
     padding: 0.75rem 1rem;
     border: none;
@@ -657,39 +658,39 @@
     .products-wrapper .container {
         gap: 1.5rem;
     }
-    
+
     .cart-panel {
         padding: 1rem;
     }
-    
+
     .cart-header h2 {
         font-size: 1.1rem;
     }
-    
+
     .cart-item {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.75rem;
     }
-    
+
     .cart-item-actions {
         width: 100%;
         justify-content: space-between;
     }
-    
+
     .dimension-inputs {
         grid-template-columns: 1fr;
     }
-    
+
     .cart-actions {
         flex-direction: column;
     }
-    
+
     .cart-modal-content {
         width: 95%;
         max-height: 90vh;
     }
-    
+
     .cart-modal-actions {
         flex-direction: column;
     }
@@ -699,69 +700,70 @@
     .products-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .cart-panel {
         padding: 0.75rem;
     }
-    
+
     .cart-header {
         flex-direction: column;
         gap: 0.5rem;
         align-items: flex-start;
     }
-    
+
     .cart-item-image {
         width: 50px;
         height: 50px;
     }
-    
+
     .cart-item-name {
         font-size: 0.85rem;
     }
-    
+
     .cart-item-dimensions {
         font-size: 0.75rem;
     }
-    
+
     .cart-item-price {
         font-size: 0.85rem;
     }
-    
+
     .quantity-controls {
         gap: 0.25rem;
     }
-    
+
     .quantity-btn {
         width: 20px;
         height: 20px;
         font-size: 0.7rem;
     }
-    
+
     .quantity-display {
         min-width: 25px;
         font-size: 0.8rem;
     }
-    
+
     .remove-item-btn {
         padding: 0.4rem;
         font-size: 0.8rem;
     }
-    
-    .btn-primary, .btn-secondary {
+
+    .btn-primary,
+    .btn-secondary {
         padding: 0.6rem 0.8rem;
         font-size: 0.9rem;
     }
-    
+
     .cart-modal-header,
     .cart-modal-body,
     .cart-modal-footer {
         padding: 1rem;
     }
-    
+
     .cart-modal-header h2 {
         font-size: 1.1rem;
     }
-    
+
     .cart-modal-total {
         font-size: 1.1rem;
     }
