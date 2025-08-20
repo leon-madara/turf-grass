@@ -1,0 +1,432 @@
+/* =========================================
+   1. CSS VARIABLES (THEME DEFINITION)
+   Define all theme colors/spacing here first
+   ========================================= */
+:root {
+    /* Colors */
+    --primary: #2d6a4f;
+    --primary-light: #a9f5c9;
+    --text-color: #013217;
+    --text-dark: #222;
+    --text-floating: hsl(36, 82%, 9%);
+    --border-color: hsla(55, 19%, 40%, 0.3);
+
+    /* Spacing */
+    --header-h: 60px;
+    --header-top: 0.5rem;
+    --header-side: 0.5rem;
+    --header-right: 0.75rem;
+    --header-radius: 0.75rem;
+    --header-gap: 1rem;
+    --header-nav-gap: 2rem;
+
+    /* Glassmorphism */
+    --glass-blur: 15px;
+    --glass-blur-floating: 20px;
+    --glass-bg: transparent;
+    --glass-bg-floating: hsla(35, 56%, 16%, 0.285);
+
+    /* Transitions */
+    --transition: 0.3s ease;
+    --transform-hover: translateY(-1px);
+
+    /* Z-index */
+    --z-header: 1000;
+    --z-hamburger: 1001;
+    --z-mobile-nav: 999;
+}
+
+/* =========================================
+   2. GLOBAL RESET & BASE STYLES
+   Foundation for the entire page
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: #fafaf6;
+    overflow-x: hidden;
+    padding-top: calc(var(--header-h) + 1rem);
+    /* Prevent content overlap */
+}
+
+/* =========================================
+   3. LAYOUT COMPONENTS
+   Structural elements that define page structure
+   ========================================= */
+
+/* Base header styles - glassmorphism */
+.header {
+    position: fixed;
+    top: var(--header-top);
+    left: var(--header-side);
+    right: var(--header-right);
+    height: var(--header-h);
+    z-index: var(--z-header);
+    display: flex;
+    align-items: center;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--header-radius);
+    transition: all var(--transition);
+    will-change: transform, background, border;
+}
+
+/* Floating header state - enhanced glass effect */
+.header.floating {
+    background: var(--glass-bg-floating);
+    backdrop-filter: blur(var(--glass-blur-floating));
+    -webkit-backdrop-filter: blur(var(--glass-blur-floating));
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-floating);
+    transform: translateY(0);
+    left: 1.5rem;
+    right: 1.5rem;
+    top: 1.5rem;
+    border-radius: 1rem;
+}
+
+/* Header container */
+.header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--header-gap);
+    width: 100%;
+}
+
+/* =========================================
+   4. COMPONENT STYLES
+   Specific UI components in document order
+   ========================================= */
+
+/* Logo */
+.logo img {
+    height: 36px;
+    transition: transform var(--transition);
+}
+
+/* Navigation */
+.nav {
+    display: flex;
+    align-items: center;
+    gap: var(--header-nav-gap);
+    margin-inline: auto;
+    /* centers the group between logo and actions */
+}
+
+.nav-link {
+    padding: 0.5rem 0.9rem;
+    border-radius: var(--header-radius);
+    font-weight: 700;
+    color: var(--text-color);
+    opacity: 0.9;
+    transition: background var(--transition), opacity var(--transition);
+}
+
+.nav-link:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.nav-link.is-active {
+    background: rgba(219, 255, 25, 0.18);
+    color: var(--primary);
+}
+
+/* Header CTA */
+.header-cta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* Cart Button */
+.cart-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+    transition: background var(--transition);
+}
+
+.cart-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.cart-icon {
+    width: 18px;
+    height: 18px;
+    fill: var(--primary-light);
+}
+
+.cart-count {
+    margin-left: 0.25rem;
+    min-width: 18px;
+    height: 18px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 999px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 0.7rem;
+    padding-inline: 0.35rem;
+}
+
+/* Broker Button */
+.broker-btn {
+    padding: 0.5rem 0.9rem;
+    border-radius: var(--header-radius);
+    font-weight: 700;
+    background: var(--primary);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: filter var(--transition);
+}
+
+.broker-btn:hover {
+    filter: brightness(1.06);
+}
+
+/* Dealer Login Button */
+.dealer-login-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    background: #ffffff;
+    color: #333333;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all var(--transition);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.dealer-login-btn i {
+    font-size: 1.1em;
+    color: #333333;
+}
+
+.dealer-login-btn:hover,
+.dealer-login-btn:active {
+    background: #f8f8f8;
+    color: #222222;
+    border-color: #d0d0d0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.dealer-login-btn:hover i,
+.dealer-login-btn:active i {
+    color: #222222;
+}
+
+/* Icon-only version for non-home pages */
+.dealer-login-btn.icon-only {
+    padding: 0.5rem 0.7rem;
+    font-size: 1.2rem;
+}
+
+.dealer-login-btn.icon-only span,
+.dealer-login-btn.icon-only .dealer-login-text {
+    display: none;
+}
+
+/* Hamburger Menu */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: var(--z-hamburger);
+}
+
+.hamburger-menu span {
+    width: 100%;
+    height: 3px;
+    background: var(--text-floating);
+    border-radius: 2px;
+    transition: all var(--transition);
+    transform-origin: center;
+}
+
+.hamburger-menu.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Mobile Navigation */
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: transparent;
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    z-index: var(--z-mobile-nav);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(-100%);
+    transition: transform var(--transition);
+}
+
+.mobile-nav.active {
+    transform: translateX(0);
+}
+
+.mobile-nav .nav-link {
+    font-size: 1.5rem;
+    padding: 1rem 2rem;
+    margin: 0.5rem 0;
+    border-radius: 1rem;
+    text-align: center;
+    min-width: 200px;
+    transition: background-color var(--transition);
+}
+
+.mobile-nav .nav-link:hover,
+.mobile-nav .nav-link:focus {
+    background-color: hsl(65, 7%, 31%);
+    color: white;
+}
+
+/* =========================================
+   5. UTILITIES & HELPERS
+   General purpose classes
+   ========================================= */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* =========================================
+   6. RESPONSIVE DESIGN
+   Mobile-first approach
+   ========================================= */
+
+/* Tablet and up */
+@media (min-width: 721px) {
+    .nav {
+        display: flex;
+    }
+
+    .logo {
+        display: block;
+    }
+
+    .hamburger-menu {
+        display: none;
+    }
+}
+
+/* Mobile */
+@media (max-width: 720px) {
+    .nav {
+        display: none;
+        gap: 1rem;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+
+    .header-cta {
+        gap: 0.5rem;
+    }
+
+    .broker-btn {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.9rem;
+    }
+
+    /* Adjust floating state for mobile */
+    .header.floating {
+        left: 0.75rem;
+        right: 0.75rem;
+        top: 0.75rem;
+    }
+
+    /* Body padding for mobile */
+    body {
+        padding-top: calc(var(--header-h) + 0.5rem);
+    }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+    .header {
+        top: 0.25rem;
+        left: 0.25rem;
+        right: 0.25rem;
+    }
+
+    .header.floating {
+        left: 0.5rem;
+        right: 0.5rem;
+        top: 0.5rem;
+    }
+
+    .nav-link {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.9rem;
+    }
+
+    .dealer-login-btn {
+        padding: 0.4rem 0.9rem;
+        font-size: 0.95rem;
+    }
+
+    .dealer-login-btn.icon-only {
+        padding: 0.4rem 0.6rem;
+    }
+}
+
+/* Larger screens */
+@media (min-width: 1200px) {
+    .header {
+        left: 5%;
+        right: 5%;
+    }
+
+    .header.floating {
+        left: 8%;
+        right: 8%;
+    }
+}
