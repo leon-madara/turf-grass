@@ -15,13 +15,13 @@ import {
         if (!modal) return;
         modal.hidden = false;
         document.body.style.overflow = 'hidden';
-        setTimeout(() => user?.focus(), 40);
+        setTimeout(() => user ? .focus(), 40);
     }
 
     function close() {
         if (!modal) return;
         modal.hidden = true;
-        form?.reset();
+        form ? .reset();
         clearErrors();
         document.body.style.overflow = '';
     }
@@ -69,7 +69,7 @@ import {
     function redirectToDashboard() {
         // Prefer your shared auth module if available
         const Auth = window.AuthState;
-        if (Auth?.login) Auth.login({
+        if (Auth ? .login) Auth.login({
             role: 'broker',
             name: user.value.trim()
         });
@@ -106,7 +106,7 @@ import {
         pass = $('#bl-pass', modal);
 
         // open/close wires
-        $('#dealerLoginBtn')?.addEventListener('click', open);
+        $('#dealerLoginBtn') ? .addEventListener('click', open);
         $$('.bl-close, .bl-overlay', modal).forEach(el => el.addEventListener('click', close));
 
         // esc to close
@@ -115,7 +115,7 @@ import {
             if (ev.key === 'Escape') close();
         });
 
-        form?.addEventListener('submit', submit);
+        form ? .addEventListener('submit', submit);
     }
 
     // Inject the partial and then wire up
