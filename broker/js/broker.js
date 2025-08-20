@@ -4,7 +4,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     initializeDashboard();
     showWelcomeToast();
-    
+
     // Load modules
     loadModules();
 });
@@ -20,15 +20,15 @@ function initializeDashboard() {
 function initializeTabs() {
     const tabs = document.querySelectorAll('.nav-tab');
     const tabContents = document.querySelectorAll('.tab-content');
-    
+
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             const targetTab = tab.getAttribute('data-tab');
-            
+
             // Remove active class from all tabs and contents
             tabs.forEach(t => t.classList.remove('active'));
             tabContents.forEach(content => content.classList.remove('active'));
-            
+
             // Add active class to clicked tab and corresponding content
             tab.classList.add('active');
             document.getElementById(`${targetTab}-content`).classList.add('active');
@@ -43,37 +43,37 @@ function initializeButtons() {
     if (addItemBtn) {
         addItemBtn.addEventListener('click', handleAddItem);
     }
-    
+
     // Submit Order Button
     const submitOrderBtn = document.getElementById('submitOrderBtn');
     if (submitOrderBtn) {
         submitOrderBtn.addEventListener('click', handleSubmitOrder);
     }
-    
+
     // Add Preorder Button
     const addPreorderBtn = document.getElementById('addPreorderBtn');
     if (addPreorderBtn) {
         addPreorderBtn.addEventListener('click', handleAddPreorder);
     }
-    
+
     // Submit Preorders Button
     const submitPreordersBtn = document.getElementById('submitPreordersBtn');
     if (submitPreordersBtn) {
         submitPreordersBtn.addEventListener('click', handleSubmitPreorders);
     }
-    
+
     // Add Inquiry Button
     const addInquiryBtn = document.getElementById('addInquiryBtn');
     if (addInquiryBtn) {
         addInquiryBtn.addEventListener('click', handleAddInquiry);
     }
-    
+
     // Submit Inquiries Button
     const submitInquiriesBtn = document.getElementById('submitInquiriesBtn');
     if (submitInquiriesBtn) {
         submitInquiriesBtn.addEventListener('click', handleSubmitInquiries);
     }
-    
+
     // Logout Button
     const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
@@ -95,7 +95,7 @@ function loadUserData() {
             console.error('Error parsing auth state:', e);
         }
     }
-    
+
     // Update cart count
     updateCartCount();
 }
@@ -104,26 +104,26 @@ function loadUserData() {
 function updateCartCount() {
     const cartCount = document.getElementById('cartCount');
     if (!cartCount) return;
-    
+
     let totalCount = 0;
-    
+
     // Count orders
     if (window.OrdersModule) {
         totalCount += window.OrdersModule.getItemCount();
     }
-    
+
     // Count preorders
     if (window.PreordersModule) {
         totalCount += window.PreordersModule.getItemCount();
     }
-    
+
     // Count inquiries
     if (window.InquiryModule) {
         totalCount += window.InquiryModule.getItemCount();
     }
-    
+
     cartCount.textContent = totalCount;
-    
+
     // Show/hide cart count badge
     if (totalCount > 0) {
         cartCount.style.display = 'block';
@@ -135,11 +135,11 @@ function updateCartCount() {
 function updateProfileDisplay(user) {
     const nameInput = document.getElementById('broker-name');
     const emailInput = document.getElementById('broker-email');
-    
+
     if (nameInput) {
         nameInput.value = user.username || 'Broker User';
     }
-    
+
     if (emailInput) {
         emailInput.value = user.email || 'broker@eastleighturf.com';
     }
@@ -185,13 +185,13 @@ function handleSubmitInquiries() {
 function handleLogout() {
     // Clear authentication state
     localStorage.removeItem('authState');
-    
+
     // Show logout message
     showToast('Logging out...', 'success');
-    
+
     // Redirect to main site after delay
     setTimeout(() => {
-        window.location.href = '/index.html';
+        window.location.href = '/turf-grass/';
     }, 1500);
 }
 
@@ -200,10 +200,10 @@ function showToast(message, type = 'success') {
     const toast = document.getElementById('toast');
     const toastMessage = toast.querySelector('.toast-message');
     const toastIcon = toast.querySelector('.toast-icon i');
-    
+
     // Set message
     toastMessage.textContent = message;
-    
+
     // Set icon and styling based on type
     if (type === 'success') {
         toastIcon.className = 'fas fa-check-circle';
@@ -215,10 +215,10 @@ function showToast(message, type = 'success') {
         toastIcon.className = 'fas fa-info-circle';
         toast.className = 'toast info';
     }
-    
+
     // Show toast
     toast.classList.remove('hidden');
-    
+
     // Auto-hide after 4 seconds
     setTimeout(() => {
         hideToast();
@@ -246,7 +246,7 @@ function contains(text, searchText) {
 function loadModules() {
     // Load individual module scripts
     const modules = ['orders', 'preorders', 'inquiry', 'profile'];
-    
+
     modules.forEach(module => {
         const script = document.createElement('script');
         script.src = `js/modules/${module}.js`;

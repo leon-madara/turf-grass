@@ -61,7 +61,7 @@ class ProfileManager {
         // Create and show edit profile modal
         const modal = this.createEditProfileModal();
         document.body.appendChild(modal);
-        
+
         // Focus on first input
         setTimeout(() => {
             const firstInput = modal.querySelector('input');
@@ -227,13 +227,13 @@ class ProfileManager {
         // Clear authentication state
         localStorage.removeItem('authState');
         localStorage.removeItem('brokerProfile');
-        
+
         // Show logout message
         this.showToast('Logging out...', 'success');
-        
+
         // Redirect to main site after delay
         setTimeout(() => {
-            window.location.href = '/index.html';
+            window.location.href = '/turf-grass/';
         }, 1500);
     }
 
