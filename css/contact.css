@@ -30,12 +30,13 @@
     padding: 0;
     box-sizing: border-box;
 }
+html, body {
+    margin: 0;
+    padding: 0;
+}
 
 body {
-    font-family: 'Arial', sans-serif; /* Should be defined here */
-    line-height: 1.6;
-    color: var(--fg);
-    background-color: #fafaf6;
+    background: linear-gradient(135deg, hsl(49, 27%, 75%), #d9e5db 50%, #a4baa8 100%);
 }
 
 .contact-page {
@@ -51,12 +52,14 @@ body {
 /* Hero Section - Should come first in CSS as it's first in HTML */
 .contact-hero {
     position: relative;
-    min-height: 40vh;
+    background: linear-gradient(135deg, hsl(49, 27%, 75%), #d9e5db 50%, #a4baa8 100%);
+    top: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    min-height: 50vh;
     display: flex;
     align-items: center;
     overflow: hidden;
-    margin-top: -2rem;
-    background: linear-gradient(to bottom, hsl(51, 13%, 40%) 0%, #476e4e 100%);
 }
 
 .hero-background {
@@ -477,8 +480,29 @@ body {
     animation-fill-mode: both;
 }
 
+
+.contact-page .header::before {
+    content: "";
+    position: absolute;
+    background-image: url('/turf-grass/assets/images/headerImages/turfgrass.jpeg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(100px); /* Increase or decrease as needed */
+    z-index: 0;
+    transition: filter 0.3s;
+}
+.contact-page .header.floating::before {
+    filter: none;
+    background: none;
+}
+
+.contact-page .header > * {
+    position: relative;
+    z-index: 1;
+}
+
 /* =========================================
-   7. RESPONSIVE DESIGN
+   8. RESPONSIVE DESIGN
    Mobile-first approach
    Should be LAST in CSS
    ========================================= */
@@ -534,5 +558,11 @@ body {
         width: 290px;
         max-width: 100%;
     }
+}
+
+.contact-info,
+.card-border {
+    margin-top: 0;
+    padding-top: 0;
 }
 
