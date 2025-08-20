@@ -7,7 +7,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "vite",
         "build": "vite build",
-        "postbuild": "copyfiles -u 1 broker/**/* dist/",
+
         "preview": "vite preview",
         "deploy": "npm run build && gh-pages -d dist"
     },

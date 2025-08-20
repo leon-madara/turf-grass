@@ -7,11 +7,11 @@ export default defineConfig({
     build: {
         rollupOptions: {
             input: {
-                main: 'index.html',
+                index: 'index.html',
                 products: 'products.html',
                 about: 'about.html',
                 contact: 'contact.html',
-                broker: 'broker/index.html',
+                'broker/broker': 'broker/broker.html',
             }
         },
         outDir: 'dist',
