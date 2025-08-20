@@ -12,13 +12,13 @@
         if (!modal) return;
         modal.hidden = false;
         document.body.style.overflow = 'hidden';
-        setTimeout(() => user ? .focus(), 40);
+        setTimeout(() => user?.focus(), 40);
     }
 
     function close() {
         if (!modal) return;
         modal.hidden = true;
-        form ? .reset();
+        form?.reset();
         clearErrors();
         document.body.style.overflow = '';
     }
@@ -66,7 +66,7 @@
     function redirectToDashboard() {
         // Prefer your shared auth module if available
         const Auth = window.AuthState;
-        if (Auth ? .login) Auth.login({
+        if (Auth?.login) Auth.login({
             role: 'broker',
             name: user.value.trim()
         });
