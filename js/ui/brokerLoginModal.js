@@ -103,7 +103,7 @@
         pass = $('#bl-pass', modal);
 
         // open/close wires
-        $('#dealerLoginBtn')?.addEventListener('click', open);
+        $('#dealerLoginBtn') ? .addEventListener('click', open);
         $$('.bl-close, .bl-overlay', modal).forEach(el => el.addEventListener('click', close));
 
         // esc to close
@@ -112,7 +112,7 @@
             if (ev.key === 'Escape') close();
         });
 
-        form?.addEventListener('submit', submit);
+        form ? .addEventListener('submit', submit);
     }
 
     // Inject the partial and then wire up
