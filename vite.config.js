@@ -13,6 +13,13 @@ export default defineConfig({
                 contact: 'contact.html',
                 broker: 'broker/index.html',
             }
-        }
+        },
+        outDir: 'dist',
+        assetsDir: 'assets',
+        sourcemap: false
+    },
+    server: {
+        port: 3000,
+        open: true
     }
 });

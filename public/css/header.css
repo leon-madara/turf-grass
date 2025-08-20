@@ -206,37 +206,35 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem 1.2rem;
-    border-radius: 10px;
-    border: 1.5px solid #e5e1d8;
-    background: #fff;
-    color: var(--text-dark);
+    padding: 0.6rem 1.2rem;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    background: #ffffff;
+    color: #333333;
     font-weight: 600;
-    font-size: 1.08rem;
-    box-shadow: none;
-    transition: background var(--transition),
-        color var(--transition),
-        border-color var(--transition);
+    font-size: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all var(--transition);
     cursor: pointer;
     text-decoration: none;
 }
 
 .dealer-login-btn i {
-    font-size: 1.2em;
-    color: var(--text-dark);
-    margin-right: 0.4em;
+    font-size: 1.1em;
+    color: #333333;
 }
 
 .dealer-login-btn:hover,
 .dealer-login-btn:active {
-    background: #cbb892;
-    color: var(--text-dark);
-    border-color: #cbb892;
+    background: #f8f8f8;
+    color: #222222;
+    border-color: #d0d0d0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .dealer-login-btn:hover i,
 .dealer-login-btn:active i {
-    color: var(--text-dark);
+    color: #222222;
 }
 
 /* Icon-only version for non-home pages */
