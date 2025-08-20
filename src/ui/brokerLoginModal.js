@@ -1,140 +1,285 @@
 import {
     loadHTML
 } from '../utils.js';
-// js/ui/brokerLoginModal.js
-// Broker Access modal (green glass UI). Redirects to /broker/index.html on success.
 
+/**
+ * Broker Login Modal Component
+ * Handles authentication for broker users with green glass UI
+ * Redirects to /broker/broker.html on successful login
+ */
 (() => {
-    const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
-    const $ = (s, c = document) => c.querySelector(s);
+    // Helper functions for DOM manipulation
+    const $$ = (selector, context = document) =>
+        Array.from(context.querySelectorAll(selector));
 
-    let modal, form, user, pass;
+    const $ = (selector, context = document) =>
+        context.querySelector(selector);
+
+    // DOM element references
+    let modal = null;
+    let form = null;
+    let userInput = null;
+    let passInput = null;
+
+    // Configuration constants
     const PARTIAL_PATH = '/turf-grass/partials/broker-login.html';
+    const DEMO_USERNAME = 'BROKER';
+    const DEMO_PASSWORD = '123';
+    const DASHBOARD_URL = '/turf-grass/broker/broker.html';
+    const LOADING_DELAY = 700; // Simulated network delay
 
+    /**
+     * Opens the broker login modal
+     * Sets focus to username field and prevents body scrolling
+     */
     function open() {
-        if (!modal) return;
+        if (!modal) {
+            console.warn('Modal not initialized');
+            return;
+        }
+
         modal.hidden = false;
         document.body.style.overflow = 'hidden';
-        setTimeout(() => user ? .focus(), 40);
+
+        // Small delay to ensure modal is fully rendered before focusing
+        setTimeout(() => {
+            if (userInput) userInput.focus();
+        }, 40);
     }
 
+    /**
+     * Closes the broker login modal
+     * Resets form, clears errors, and restores body scrolling
+     */
     function close() {
-        if (!modal) return;
+        if (!modal) {
+            console.warn('Modal not initialized');
+            return;
+        }
+
         modal.hidden = true;
-        form ? .reset();
+        if (form) form.reset();
         clearErrors();
         document.body.style.overflow = '';
     }
 
+    /**
+     * Removes all error styling and messages from the form
+     */
     function clearErrors() {
-        $$('.bl-error', form).forEach(i => i.classList.remove('bl-error'));
-        $$('.bl-errtext', form).forEach(n => n.remove());
-    }
+        if (!form) return;
 
-    function error(input, msg) {
-        input.classList.add('bl-error');
-        const div = document.createElement('div');
-        div.className = 'bl-errtext';
-        div.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> ${msg}`;
-        input.after(div);
-    }
-
-    function validate() {
-        clearErrors();
-        let ok = true;
-        if (!user.value.trim()) {
-            error(user, 'Username is required');
-            ok = false;
-        }
-        if (!pass.value) {
-            error(pass, 'Password is required');
-            ok = false;
-        }
-        return ok;
-    }
-
-    function setLoading(on) {
-        const btn = form.querySelector('button[type="submit"]');
-        btn.disabled = on;
-        btn.classList.toggle('is-loading', on);
-        if (on) {
-            btn.dataset.lbl = btn.textContent;
-            btn.textContent = 'Signing in…';
-        } else if (btn.dataset.lbl) {
-            btn.textContent = btn.dataset.lbl;
-            delete btn.dataset.lbl;
-        }
-    }
-
-    function redirectToDashboard() {
-        // Prefer your shared auth module if available
-        const Auth = window.AuthState;
-        if (Auth ? .login) Auth.login({
-            role: 'broker',
-            name: user.value.trim()
+        // Remove error classes from inputs
+        $$('.bl-error', form).forEach(element => {
+            element.classList.remove('bl-error');
         });
 
-        window.location.href = '/turf-grass/broker/broker.html';
+        // Remove error text elements
+        $$('.bl-errtext', form).forEach(errorElement => {
+            errorElement.remove();
+        });
     }
 
-    function submit(e) {
-        e.preventDefault();
-        if (!validate()) return;
+    /**
+     * Displays an error message for a specific input field
+     * @param {HTMLInputElement} input - The input element that has the error
+     * @param {string} message - The error message to display
+     */
+    function showError(input, message) {
+        // Add error styling to the input
+        input.classList.add('bl-error');
 
-        setLoading(true);
-        // Simulated auth; replace with real API
+        // Create error message element
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'bl-errtext';
+        errorDiv.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> ${message}`;
+
+        // Insert error message after the input
+        input.insertAdjacentElement('afterend', errorDiv);
+    }
+
+    /**
+     * Validates the login form inputs
+     * @returns {boolean} True if validation passes, false otherwise
+     */
+    function validateForm() {
+        clearErrors();
+        let isValid = true;
+
+        // Validate username
+        if (!userInput || !userInput.value.trim()) {
+            if (userInput) showError(userInput, 'Username is required');
+            isValid = false;
+        }
+
+        // Validate password
+        if (!passInput || !passInput.value) {
+            if (passInput) showError(passInput, 'Password is required');
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    /**
+     * Sets the loading state of the submit button
+     * @param {boolean} isLoading - Whether to show loading state
+     */
+    function setLoadingState(isLoading) {
+        const submitButton = form && form.querySelector('button[type="submit"]');
+        if (!submitButton) return;
+
+        submitButton.disabled = isLoading;
+        submitButton.classList.toggle('is-loading', isLoading);
+
+        if (isLoading) {
+            // Store original text and show loading message
+            submitButton.dataset.originalLabel = submitButton.textContent || '';
+            submitButton.textContent = 'Signing in…';
+        } else {
+            // Restore original text
+            const originalLabel = submitButton.dataset.originalLabel;
+            if (originalLabel) {
+                submitButton.textContent = originalLabel;
+                delete submitButton.dataset.originalLabel;
+            }
+        }
+    }
+
+    /**
+     * Redirects to the broker dashboard after successful authentication
+     */
+    function redirectToDashboard() {
+        try {
+            // Update auth state if available
+            const authState = window.AuthState;
+            if (authState && authState.login) {
+                authState.login({
+                    role: 'broker',
+                    name: (userInput && userInput.value.trim()) || ''
+                });
+            }
+
+            // Redirect to dashboard
+            window.location.href = DASHBOARD_URL;
+        } catch (error) {
+            console.error('Error during dashboard redirect:', error);
+        }
+    }
+
+    /**
+     * Handles form submission and authentication
+     * @param {Event} event - The form submit event
+     */
+    function handleSubmit(event) {
+        event.preventDefault();
+
+        // Validate form inputs
+        if (!validateForm()) {
+            return;
+        }
+
+        // Get form values
+        const username = (userInput && userInput.value.trim()) || '';
+        const password = (passInput && passInput.value) || '';
+
+        // Set loading state
+        setLoadingState(true);
+
+        // Simulate authentication API call
+        // TODO: Replace with actual authentication API
         setTimeout(() => {
-            const u = user.value.trim();
-            const p = pass.value;
-            if (u === 'BROKER' && p === '123') {
+            if (username === DEMO_USERNAME && password === DEMO_PASSWORD) {
+                // Successful authentication
                 redirectToDashboard();
             } else {
-                setLoading(false);
-                error(user, 'Use demo BROKER');
-                error(pass, 'Use demo 123');
-                user.focus();
+                // Authentication failed
+                setLoadingState(false);
+                if (userInput) {
+                    showError(userInput, 'Invalid credentials. Use demo username: BROKER');
+                }
+                if (passInput) {
+                    showError(passInput, 'Invalid credentials. Use demo password: 123');
+                }
+                if (userInput) userInput.focus();
             }
-        }, 700);
+        }, LOADING_DELAY);
     }
 
-    function boot() {
+    /**
+     * Handles keyboard events for modal interaction
+     * @param {KeyboardEvent} event - The keyboard event
+     */
+    function handleKeydown(event) {
+        // Close modal on Escape key
+        if (event.key === 'Escape' && modal && !modal.hidden) {
+            close();
+        }
+    }
+
+    /**
+     * Initializes event listeners and DOM references
+     */
+    function setupEventListeners() {
+        // Get DOM references
         modal = $('#brokerLogin');
-        if (!modal) return; // partial not on this page
+        if (!modal) {
+            console.warn('Broker login modal not found in DOM');
+            return;
+        }
 
         form = $('#bl-form', modal);
-        user = $('#bl-user', modal);
-        pass = $('#bl-pass', modal);
+        userInput = $('#bl-user', modal);
+        passInput = $('#bl-pass', modal);
 
-        // open/close wires
-        $('#dealerLoginBtn') ? .addEventListener('click', open);
-        $$('.bl-close, .bl-overlay', modal).forEach(el => el.addEventListener('click', close));
+        // Verify all required elements are present
+        if (!form || !userInput || !passInput) {
+            console.error('Required form elements not found');
+            return;
+        }
 
-        // esc to close
-        document.addEventListener('keydown', (ev) => {
-            if (!modal || modal.hidden) return;
-            if (ev.key === 'Escape') close();
+        // Setup open button event listener
+        const openButton = $('#dealerLoginBtn');
+        if (openButton) {
+            openButton.addEventListener('click', open);
+        }
+
+        // Setup close button event listeners
+        $$('.bl-close, .bl-overlay', modal).forEach(element => {
+            element.addEventListener('click', close);
         });
 
-        form ? .addEventListener('submit', submit);
+        // Setup form submission
+        form.addEventListener('submit', handleSubmit);
+
+        // Setup keyboard event listener
+        document.addEventListener('keydown', handleKeydown);
     }
 
-    // Inject the partial and then wire up
-    async function init() {
+    /**
+     * Loads the modal HTML partial and initializes the component
+     * @returns {Promise<void>}
+     */
+    async function initialize() {
         try {
+            // Load the HTML partial
             await loadHTML('body', PARTIAL_PATH, {
                 position: 'beforeend'
             });
+
             // Small delay to ensure DOM is ready
-            setTimeout(boot, 10);
-        } catch (err) {
-            console.error('Failed to load broker login modal:', err);
+            setTimeout(setupEventListeners, 10);
+
+            console.log('Broker login modal initialized successfully');
+        } catch (error) {
+            console.error('Failed to load broker login modal:', error);
         }
     }
 
-    // Start immediately
-    init();
+    // Initialize the component immediately
+    initialize();
 
-    // expose for manual control if you like
+    // Expose public API for external control
     window.BrokerLogin = {
         open,
         close
