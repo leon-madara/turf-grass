@@ -20,7 +20,7 @@ Edit the file `public/js/config/whatsapp-config.js` and update the `PHONE_NUMBER
 window.WhatsAppConfig = {
     // Your WhatsApp number (with country code, no + symbol)
     // Example: '254700000000' for Kenya
-    PHONE_NUMBER: '254700000000', // ← Update this with your actual number
+    PHONE_NUMBER: '254704505523', // ← Update this with your actual number
     
     // ... other settings
 };

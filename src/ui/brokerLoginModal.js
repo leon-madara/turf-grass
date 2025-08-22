@@ -22,10 +22,10 @@ import {
     let passInput = null;
 
     // Configuration constants
-    const PARTIAL_PATH = '/turf-grass/partials/broker-login.html';
+    const PARTIAL_PATH = '/partials/broker-login.html';
     const DEMO_USERNAME = 'BROKER';
     const DEMO_PASSWORD = '123';
-    const DASHBOARD_URL = '/turf-grass/broker/broker.html';
+    const DASHBOARD_URL = '/broker/broker.html';
     const LOADING_DELAY = 700; // Simulated network delay
 
     /**

@@ -3,7 +3,7 @@
 ========================================= */
 
 :root {
-    --header-h: 64px;
+    /* Header height defined in header.css */
 }
 
 body {

@@ -52,7 +52,8 @@ body {
     color: var(--text-color);
     background-color: #fafaf6;
     overflow-x: hidden;
-    padding-top: calc(var(--header-h) + 1rem);
+    /* padding-top: calc(var(--header-h) + 1rem); */
+    padding-top: 0;
     /* Prevent content overlap */
 }
 

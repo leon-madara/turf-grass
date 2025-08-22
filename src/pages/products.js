@@ -12,7 +12,7 @@ import '../components/header.js';
         if (!grid) return;
 
         try {
-            const res = await fetch('/turf-grass/data/products.json', {
+            const res = await fetch('/data/products.json', {
                 cache: 'no-cache'
             });
             const products = await res.json();

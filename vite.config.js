@@ -3,7 +3,7 @@ import {
 } from 'vite';
 
 export default defineConfig({
-    base: '/turf-grass/',
+    base: '/',
     build: {
         rollupOptions: {
             input: {
