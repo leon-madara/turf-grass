@@ -5,229 +5,414 @@ document.addEventListener("DOMContentLoaded", () => {
     // Register GSAP plugins
     gsap.registerPlugin(ScrollTrigger);
 
-    // Animation state management
-    const state = {
-        currentCard: 1,
-        totalCards: 6,
-        isAnimating: false,
-        scrollProgress: 0
+    // Track current animation phase
+    let currentPhase = 0;
+
+    // Get debug elements for real-time feedback
+    const phaseDisplay = document.getElementById('phase-display');
+    const progressDisplay = document.getElementById('progress-display');
+    const directionDisplay = document.getElementById('direction-display');
+
+    // Configuration for the flip animation
+    const config = {
+        perspective: 1200,
+        flipDuration: 1.2,
+        ease: "power2.inOut"
     };
 
-    // Get debug elements
-    const debugElements = {
-        panel: document.querySelector('.debug-panel'),
-        phaseDisplay: document.getElementById('phase-display'),
-        progressDisplay: document.getElementById('progress-display'),
-        directionDisplay: document.getElementById('direction-display'),
-        cardDisplay: document.getElementById('card-display')
-    };
+    // Set initial states - all cards in the same position
+    gsap.set(".product-card", {
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        xPercent: -50,
+        yPercent: -50,
+        rotationX: 0,
+        rotationY: 0,
+        opacity: 0,
+        z: 0,
+        scale: 1
+    });
 
-    /**
-     * Debug logging function
-     */
-    const debugLog = (message, data = null) => {
-        if (debugElements.panel && window.location.hostname === 'localhost') {
-            console.log(`[3D Carousel] ${message}`, data || '');
-        }
-    };
+    // Only show the first card initially
+    gsap.set(".col-1", {
+        opacity: 1,
+        z: 0,
+        rotationX: 0,
+        rotationY: 0,
+        scale: 1,
+        zIndex: 6
+    });
 
-    /**
-     * Update debug panel
-     */
-    const updateDebugDisplay = (progress, direction) => {
-        if (!debugElements.panel) return;
+    // Main ScrollTrigger configuration
+    ScrollTrigger.create({
+        trigger: ".product-showcase",
+        start: "top top",
+        end: `+=${window.innerHeight * 6}`,
+        scrub: 1.2,
+        pin: true,
+        pinSpacing: true,
+        markers: false,
 
-        if (debugElements.progressDisplay) {
-            debugElements.progressDisplay.textContent = Math.round(progress * 100) + '%';
-        }
+        onUpdate: (self) => {
+            const progress = self.progress;
+            const direction = self.direction;
 
-        if (debugElements.directionDisplay) {
-            debugElements.directionDisplay.textContent = direction === 1 ? '↓' : '↑';
-        }
+            // Update debug display
+            progressDisplay.textContent = Math.round(progress * 100) + '%';
+            directionDisplay.textContent = direction === 1 ? 'Forward' : 'Backward';
 
-        if (debugElements.cardDisplay) {
-            debugElements.cardDisplay.textContent = `Card ${state.currentCard}`;
-        }
-    };
+            /**
+             * FORWARD ANIMATIONS
+             */
 
-    /**
-     * Initialize 3D card stack
-     */
-    const initialize3DCardStack = () => {
-        debugLog('Initializing 3D card stack');
+            // PHASE 1: 0% to 16.6% progress
+            // Flip from Card 1 to Card 2
+            if (progress >= 0.166 && currentPhase === 0) {
+                currentPhase = 1;
+                phaseDisplay.textContent = currentPhase;
 
-        // Set initial 3D positions for all cards
-        for (let i = 1; i <= state.totalCards; i++) {
-            const selector = `.col-${i}`;
-            const zIndex = state.totalCards - i + 1;
+                // Card 1: Flip forward (like turning a page)
+                gsap.to(".col-1", {
+                    rotationX: 90,
+                    opacity: 0,
+                    duration: config.flipDuration,
+                    ease: config.ease,
+                    onComplete: () => {
+                        // After flip completes, reset z-index and opacity
+                        gsap.set(".col-1", {
+                            zIndex: 1,
+                            opacity: 0
+                        });
+                    }
+                });
 
-            // Calculate 3D position based on card number
-            const depth = (i - 1) * 100; // Z-depth in pixels
-            const rotation = (i - 1) * 15; // X-rotation in degrees
-            const scale = 1 - (i - 1) * 0.1; // Scale factor
-            const opacity = Math.max(0.05, 1 - (i - 1) * 0.3); // Opacity
+                // Card 2: Flip up from behind
+                gsap.set(".col-2", {
+                    zIndex: 6,
+                    rotationX: -90,
+                    opacity: 1
+                });
 
-            gsap.set(selector, {
-                zIndex: zIndex,
-                opacity: opacity,
-                transform: `translate(-50%, -50%) rotateX(${rotation}deg) translateZ(-${depth}px) scale(${scale})`,
-                transformOrigin: "center center"
-            });
-        }
-
-        debugLog('3D card stack initialized');
-    };
-
-    /**
-     * Calculate target card from scroll progress
-     */
-    const calculateTargetCard = (progress) => {
-        const section = Math.floor(progress * state.totalCards);
-        return Math.min(Math.max(section + 1, 1), state.totalCards);
-    };
-
-    /**
-     * 3D card transition animation
-     */
-    const transitionToCard = (targetCard) => {
-        if (state.isAnimating || targetCard === state.currentCard) return;
-
-        state.isAnimating = true;
-        debugLog(`3D transition to card ${targetCard} from card ${state.currentCard}`);
-
-        const tl = gsap.timeline({
-            onComplete: () => {
-                state.isAnimating = false;
-                state.currentCard = targetCard;
-                debugLog(`3D transition complete - now showing card ${targetCard}`);
+                gsap.to(".col-2", {
+                    rotationX: 0,
+                    duration: config.flipDuration,
+                    ease: config.ease
+                });
             }
-        });
 
-        // Animate all cards to their new 3D positions
-        for (let i = 1; i <= state.totalCards; i++) {
-            const selector = `.col-${i}`;
-            const newPosition = i - targetCard + 1; // Relative position to target card
+            // PHASE 2: 16.6% to 33.2% progress
+            // Flip from Card 2 to Card 3
+            if (progress >= 0.332 && currentPhase === 1) {
+                currentPhase = 2;
+                phaseDisplay.textContent = currentPhase;
 
-            // Calculate new 3D properties
-            const depth = Math.max(0, (newPosition - 1) * 100);
-            const rotation = Math.max(0, (newPosition - 1) * 15);
-            const scale = Math.max(0.5, 1 - (newPosition - 1) * 0.1);
-            const opacity = Math.max(0.05, 1 - (newPosition - 1) * 0.3);
+                // Card 2: Flip forward
+                gsap.to(".col-2", {
+                    rotationX: 90,
+                    opacity: 0,
+                    duration: config.flipDuration,
+                    ease: config.ease,
+                    onComplete: () => {
+                        gsap.set(".col-2", {
+                            zIndex: 1,
+                            opacity: 0
+                        });
+                    }
+                });
 
-            tl.to(selector, {
-                opacity: opacity,
-                transform: `translate(-50%, -50%) rotateX(${rotation}deg) translateZ(-${depth}px) scale(${scale})`,
-                duration: 0.8,
-                ease: "power2.out"
-            }, 0); // All animations start at the same time
-        }
-    };
+                // Card 3: Flip up from behind
+                gsap.set(".col-3", {
+                    zIndex: 6,
+                    rotationX: -90,
+                    opacity: 1
+                });
 
-    /**
-     * Setup ScrollTrigger for 3D carousel
-     */
-    const setup3DScrollTrigger = () => {
-        debugLog('Setting up 3D ScrollTrigger');
-
-        ScrollTrigger.create({
-            trigger: ".product-showcase",
-            start: "top top",
-            end: `+=${window.innerHeight * 4}`, // 4x viewport for 6 cards
-            scrub: 1,
-            pin: true,
-            pinSpacing: true,
-            markers: false,
-
-            onUpdate: (self) => {
-                const progress = self.progress;
-                const direction = self.direction;
-
-                // Update debug display
-                updateDebugDisplay(progress, direction);
-
-                // Calculate target card based on progress
-                const targetCard = calculateTargetCard(progress);
-
-                // Only animate if target card changed
-                if (targetCard !== state.currentCard && !state.isAnimating) {
-                    transitionToCard(targetCard);
-                }
-
-                // Store current progress
-                state.scrollProgress = progress;
-            },
-
-            onStart: () => {
-                debugLog('3D ScrollTrigger animation started');
-            },
-
-            onComplete: () => {
-                debugLog('3D ScrollTrigger animation completed');
+                gsap.to(".col-3", {
+                    rotationX: 0,
+                    duration: config.flipDuration,
+                    ease: config.ease
+                });
             }
-        });
-    };
 
-    /**
-     * Handle window resize
-     */
-    const handleResize = () => {
-        debugLog('Window resized, refreshing 3D system');
+            // PHASE 3: 33.2% to 49.8% progress
+            // Flip from Card 3 to Card 4
+            if (progress >= 0.498 && currentPhase === 2) {
+                currentPhase = 3;
+                phaseDisplay.textContent = currentPhase;
+
+                // Card 3: Flip forward
+                gsap.to(".col-3", {
+                    rotationX: 90,
+                    opacity: 0,
+                    duration: config.flipDuration,
+                    ease: config.ease,
+                    onComplete: () => {
+                        gsap.set(".col-3", {
+                            zIndex: 1,
+                            opacity: 0
+                        });
+                    }
+                });
+
+                // Card 4: Flip up from behind
+                gsap.set(".col-4", {
+                    zIndex: 6,
+                    rotationX: -90,
+                    opacity: 1
+                });
+
+                gsap.to(".col-4", {
+                    rotationX: 0,
+                    duration: config.flipDuration,
+                    ease: config.ease
+                });
+            }
+
+            // PHASE 4: 49.8% to 66.4% progress
+            // Flip from Card 4 to Card 5
+            if (progress >= 0.664 && currentPhase === 3) {
+                currentPhase = 4;
+                phaseDisplay.textContent = currentPhase;
+
+                // Card 4: Flip forward
+                gsap.to(".col-4", {
+                    rotationX: 90,
+                    opacity: 0,
+                    duration: config.flipDuration,
+                    ease: config.ease,
+                    onComplete: () => {
+                        gsap.set(".col-4", {
+                            zIndex: 1,
+                            opacity: 0
+                        });
+                    }
+                });
+
+                // Card 5: Flip up from behind
+                gsap.set(".col-5", {
+                    zIndex: 6,
+                    rotationX: -90,
+                    opacity: 1
+                });
+
+                gsap.to(".col-5", {
+                    rotationX: 0,
+                    duration: config.flipDuration,
+                    ease: config.ease
+                });
+            }
+
+            // PHASE 5: 66.4% to 83% progress
+            // Flip from Card 5 to Card 6
+            if (progress >= 0.83 && currentPhase === 4) {
+                currentPhase = 5;
+                phaseDisplay.textContent = currentPhase;
+
+                // Card 5: Flip forward
+                gsap.to(".col-5", {
+                    rotationX: 90,
+                    opacity: 0,
+                    duration: config.flipDuration,
+                    ease: config.ease,
+                    onComplete: () => {
+                        gsap.set(".col-5", {
+                            zIndex: 1,
+                            opacity: 0
+                        });
+                    }
+                });
+
+                // Card 6: Flip up from behind
+                gsap.set(".col-6", {
+                    zIndex: 6,
+                    rotationX: -90,
+                    opacity: 1
+                });
+
+                gsap.to(".col-6", {
+                    rotationX: 0,
+                    duration: config.flipDuration,
+                    ease: config.ease
+                });
+            }
+
+            /**
+             * REVERSE ANIMATIONS
+             */
+
+            // Reverse from Phase 5 to Phase 4
+            if (progress < 0.83 && currentPhase === 5) {
+                currentPhase = 4;
+                phaseDisplay.textContent = currentPhase;
+
+                // Card 6: Flip backward
+                gsap.to(".col-6", {
+                    rotationX: -90,
+                    opacity: 0,
+                    duration: config.flipDuration,
+                    ease: config.ease,
+                    onComplete: () => {
+                        gsap.set(".col-6", {
+                            zIndex: 1,
+                            opacity: 0
+                        });
+                    }
+                });
+
+                // Card 5: Flip down from above
+                gsap.set(".col-5", {
+                    zIndex: 6,
+                    rotationX: 90,
+                    opacity: 1
+                });
+
+                gsap.to(".col-5", {
+                    rotationX: 0,
+                    duration: config.flipDuration,
+                    ease: config.ease
+                });
+            }
+
+            // Reverse from Phase 4 to Phase 3
+            if (progress < 0.664 && currentPhase === 4) {
+                currentPhase = 3;
+                phaseDisplay.textContent = currentPhase;
+
+                // Card 5: Flip backward
+                gsap.to(".col-5", {
+                    rotationX: -90,
+                    opacity: 0,
+                    duration: config.flipDuration,
+                    ease: config.ease,
+                    onComplete: () => {
+                        gsap.set(".col-5", {
+                            zIndex: 1,
+                            opacity: 0
+                        });
+                    }
+                });
+
+                // Card 4: Flip down from above
+                gsap.set(".col-4", {
+                    zIndex: 6,
+                    rotationX: 90,
+                    opacity: 1
+                });
+
+                gsap.to(".col-4", {
+                    rotationX: 0,
+                    duration: config.flipDuration,
+                    ease: config.ease
+                });
+            }
+
+            // Reverse from Phase 3 to Phase 2
+            if (progress < 0.498 && currentPhase === 3) {
+                currentPhase = 2;
+                phaseDisplay.textContent = currentPhase;
+
+                // Card 4: Flip backward
+                gsap.to(".col-4", {
+                    rotationX: -90,
+                    opacity: 0,
+                    duration: config.flipDuration,
+                    ease: config.ease,
+                    onComplete: () => {
+                        gsap.set(".col-4", {
+                            zIndex: 1,
+                            opacity: 0
+                        });
+                    }
+                });
+
+                // Card 3: Flip down from above
+                gsap.set(".col-3", {
+                    zIndex: 6,
+                    rotationX: 90,
+                    opacity: 1
+                });
+
+                gsap.to(".col-3", {
+                    rotationX: 0,
+                    duration: config.flipDuration,
+                    ease: config.ease
+                });
+            }
+
+            // Reverse from Phase 2 to Phase 1
+            if (progress < 0.332 && currentPhase === 2) {
+                currentPhase = 1;
+                phaseDisplay.textContent = currentPhase;
+
+                // Card 3: Flip backward
+                gsap.to(".col-3", {
+                    rotationX: -90,
+                    opacity: 0,
+                    duration: config.flipDuration,
+                    ease: config.ease,
+                    onComplete: () => {
+                        gsap.set(".col-3", {
+                            zIndex: 1,
+                            opacity: 0
+                        });
+                    }
+                });
+
+                // Card 2: Flip down from above
+                gsap.set(".col-2", {
+                    zIndex: 6,
+                    rotationX: 90,
+                    opacity: 1
+                });
+
+                gsap.to(".col-2", {
+                    rotationX: 0,
+                    duration: config.flipDuration,
+                    ease: config.ease
+                });
+            }
+
+            // Reverse from Phase 1 to Phase 0
+            if (progress < 0.166 && currentPhase === 1) {
+                currentPhase = 0;
+                phaseDisplay.textContent = currentPhase;
+
+                // Card 2: Flip backward
+                gsap.to(".col-2", {
+                    rotationX: -90,
+                    opacity: 0,
+                    duration: config.flipDuration,
+                    ease: config.ease,
+                    onComplete: () => {
+                        gsap.set(".col-2", {
+                            zIndex: 1,
+                            opacity: 0
+                        });
+                    }
+                });
+
+                // Card 1: Flip down from above
+                gsap.set(".col-1", {
+                    zIndex: 6,
+                    rotationX: 90,
+                    opacity: 1
+                });
+
+                gsap.to(".col-1", {
+                    rotationX: 0,
+                    duration: config.flipDuration,
+                    ease: config.ease
+                });
+            }
+        }
+    });
+
+    // Refresh ScrollTrigger
+    ScrollTrigger.refresh();
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
         ScrollTrigger.getAll().forEach(trigger => trigger.refresh());
-    };
-
-    /**
-     * Initialize the 3D carousel system
-     */
-    const initialize = () => {
-        debugLog('Initializing 3D carousel system');
-
-        try {
-            // Core initialization
-            initialize3DCardStack();
-            setup3DScrollTrigger();
-
-            // Event listeners
-            window.addEventListener('resize', handleResize);
-
-            // Final setup
-            ScrollTrigger.refresh();
-
-            debugLog('3D carousel system initialization complete');
-
-        } catch (error) {
-            console.error('Failed to initialize 3D carousel system:', error);
-        }
-    };
-
-    /**
-     * Cleanup function
-     */
-    const cleanup = () => {
-        debugLog('Cleaning up 3D carousel system');
-        ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-        gsap.globalTimeline.clear();
-    };
-
-    // Event listeners for lifecycle management
-    window.addEventListener('beforeunload', cleanup);
-
-    // Start the system
-    initialize();
-
-    // Expose API for external control (development only)
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        window.carousel3D = {
-            goToCard: transitionToCard,
-            getCurrentCard: () => state.currentCard,
-            getState: () => ({
-                ...state
-            }),
-            refresh: () => {
-                ScrollTrigger.refresh();
-                debugLog('Manual refresh triggered');
-            }
-        };
-
-        debugLog('Development API exposed as window.carousel3D');
-    }
+    });
 });
