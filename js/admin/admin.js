@@ -1,3 +1,6 @@
+// Import CSS files for bundling
+import '../css/admin.css';
+
 // Admin Dashboard Main JavaScript
 import {
     AdminAuth
