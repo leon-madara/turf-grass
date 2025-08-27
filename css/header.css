@@ -1,127 +1,158 @@
 /* =========================================
-   1. CSS VARIABLES (THEME DEFINITION)
-   Define all theme colors/spacing here first
+   EASTLEIGH TURF GRASS - HEADER STYLES
+   Clean, Performance-Optimized CSS with Glass Morphism
+   ========================================= */
+
+/* =========================================
+   1. CSS CUSTOM PROPERTIES (DESIGN TOKENS)
+   Centralized theme configuration
    ========================================= */
 :root {
-    /* Colors */
+    /* === COLOR PALETTE === */
     --primary: #2d6a4f;
     --primary-light: #a9f5c9;
     --text-color: #013217;
     --text-dark: #222;
     --text-floating: hsl(36, 82%, 9%);
     --border-color: hsla(55, 19%, 40%, 0.3);
+    --white: #ffffff;
+    --transparent: transparent;
 
-    /* Spacing */
-    --header-h: 60px;
-    --header-top: 0.5rem;
-    --header-side: 0.5rem;
-    --header-right: 0.75rem;
+    /* === LAYOUT DIMENSIONS === */
+    --header-height: 60px;
+    --header-padding-block: 0.5rem;
+    --header-padding-inline: 0.5rem;
     --header-radius: 0.75rem;
     --header-gap: 1rem;
-    --header-nav-gap: 2rem;
+    --nav-gap: 2rem;
 
-    /* Glassmorphism */
+    /* === GLASS MORPHISM EFFECTS === */
     --glass-blur: 15px;
     --glass-blur-floating: 20px;
     --glass-bg: transparent;
     --glass-bg-floating: hsla(35, 56%, 16%, 0.285);
+    --glass-border: 1.5px solid var(--border-color);
+    --glass-border-floating: 1px solid rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 
-    /* Transitions */
-    --transition: 0.3s ease;
+    /* === TRANSITIONS & ANIMATIONS === */
+    --transition-fast: 0.2s ease;
+    --transition-medium: 0.3s ease;
     --transform-hover: translateY(-1px);
 
-    /* Z-index */
+    /* === Z-INDEX LAYERS === */
     --z-header: 1000;
     --z-hamburger: 1001;
     --z-mobile-nav: 999;
 }
 
 /* =========================================
-   2. GLOBAL RESET & BASE STYLES
-   Foundation for the entire page
+   2. GLOBAL FOUNDATION & RESET
+   Essential base styles for all elements
    ========================================= */
-* {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+html,
 body {
+    margin: 0;
+    padding: 0;
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
     color: var(--text-color);
     background-color: #fafaf6;
     overflow-x: hidden;
-    padding-top: calc(var(--header-h) + 1rem);
-    /* Prevent content overlap */
 }
 
 /* =========================================
-   3. LAYOUT COMPONENTS
-   Structural elements that define page structure
+   3. HEADER CORE STRUCTURE
+   Base header layout and glass morphism
    ========================================= */
 
-/* Base header styles - glassmorphism */
+/* === PRIMARY HEADER CONTAINER === */
 .header {
     position: fixed;
-    top: var(--header-top);
-    left: var(--header-side);
-    right: var(--header-right);
-    height: var(--header-h);
+    top: var(--header-padding-block);
+    left: var(--header-padding-inline);
+    right: var(--header-padding-inline);
+    height: var(--header-height);
     z-index: var(--z-header);
+
+    /* Layout */
     display: flex;
     align-items: center;
+
+    /* Glass Morphism Base */
     background: var(--glass-bg);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1.5px solid var(--border-color);
+    border: 1px solid rgba(0, 0, 0, 0.726);
     border-radius: var(--header-radius);
-    transition: all var(--transition);
+
+    /* Performance */
     will-change: transform, background, border;
+    transition: all var(--transition-medium);
 }
 
-/* Floating header state - enhanced glass effect */
+/* === FLOATING HEADER STATE === */
 .header.floating {
+    /* Enhanced Glass Effect */
     background: var(--glass-bg-floating);
     backdrop-filter: blur(var(--glass-blur-floating));
     -webkit-backdrop-filter: blur(var(--glass-blur-floating));
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.726);
+    box-shadow: var(--glass-shadow);
     color: var(--text-floating);
-    transform: translateY(0);
+
+    /* Adjusted Positioning */
+    top: 1.5rem;
     left: 1.5rem;
     right: 1.5rem;
-    top: 1.5rem;
     border-radius: 1rem;
+    transform: translateY(0);
 }
 
-/* Header container */
+/* === HEADER INNER CONTAINER === */
 .header .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--header-gap);
     width: 100%;
+    gap: var(--header-gap);
+    padding: 0 1rem;
 }
 
 /* =========================================
-   4. COMPONENT STYLES
-   Specific UI components in document order
+   4. NAVIGATION COMPONENTS
+   Logo, primary nav, and mobile menu
    ========================================= */
 
-/* Logo */
-.logo img {
-    height: 36px;
-    transition: transform var(--transition);
+/* === BRAND LOGO === */
+.logo {
+    display: flex;
+    align-items: center;
 }
 
-/* Navigation */
+.logo img {
+    height: 36px;
+    transition: transform var(--transition-fast);
+}
+
+.logo:hover img {
+    transform: var(--transform-hover);
+}
+
+/* === PRIMARY NAVIGATION === */
 .nav {
     display: flex;
     align-items: center;
-    gap: var(--header-nav-gap);
+    gap: var(--nav-gap);
     margin-inline: auto;
-    /* centers the group between logo and actions */
 }
 
 .nav-link {
@@ -129,28 +160,103 @@ body {
     border-radius: var(--header-radius);
     font-weight: 700;
     color: var(--text-color);
+    text-decoration: none;
     opacity: 0.9;
-    transition: background var(--transition), opacity var(--transition);
+    transition: all var(--transition-fast);
 }
 
 .nav-link:hover {
     opacity: 1;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(224, 224, 224, 0.815);
 }
 
 .nav-link.is-active {
-    background: rgba(219, 255, 25, 0.18);
-    color: var(--primary);
+    background: transparent;
+    color: white;
+    opacity: 1;
+    border: 0.5px solid rgb(3, 78, 3);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 
-/* Header CTA */
+
+/* === MOBILE HAMBURGER MENU === */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: var(--transparent);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: var(--z-hamburger);
+    border-radius: 8px;
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: var(--text-floating);
+    border-radius: 2px;
+    transition: all var(--transition-medium);
+    transform-origin: center;
+}
+
+/* Hamburger Animation States */
+.hamburger-menu.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* === MOBILE NAVIGATION OVERLAY === */
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--transparent);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    z-index: var(--z-mobile-nav);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    transform: translateX(-100%);
+    transition: transform var(--transition-medium);
+}
+
+.mobile-nav.active {
+    transform: translateX(0);
+}
+
+/* Mobile Navigation - Now handled by mobile-nav.css */
+
+/* =========================================
+   5. HEADER ACTION COMPONENTS
+   Cart, buttons, and user actions
+   ========================================= */
+
+/* === HEADER ACTIONS CONTAINER === */
 .header-cta {
     display: flex;
     align-items: center;
     gap: 0.75rem;
 }
 
-/* Cart Button */
+/* === SHOPPING CART BUTTON === */
 .cart-btn {
     display: inline-flex;
     align-items: center;
@@ -160,7 +266,8 @@ body {
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.12);
     background: rgba(255, 255, 255, 0.06);
-    transition: background var(--transition);
+    text-decoration: none;
+    transition: background var(--transition-fast);
 }
 
 .cart-btn:hover {
@@ -179,49 +286,59 @@ body {
     height: 18px;
     display: inline-grid;
     place-items: center;
-    border-radius: 999px;
+    border-radius: 50%;
     background: var(--primary);
-    color: #fff;
+    color: var(--white);
     font-size: 0.7rem;
     padding-inline: 0.35rem;
 }
 
-/* Broker Button */
+/* === BROKER BUTTON === */
 .broker-btn {
     padding: 0.5rem 0.9rem;
     border-radius: var(--header-radius);
-    font-weight: 700;
+    font-weight: 600;
     background: var(--primary);
-    color: #fff;
+    color: var(--white);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    transition: filter var(--transition);
+    text-decoration: none;
+    transition: filter var(--transition-fast);
 }
 
 .broker-btn:hover {
     filter: brightness(1.06);
 }
 
-/* Dealer Login Button */
+/* === DEALER LOGIN BUTTON === */
 .dealer-login-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     padding: 0.6rem 1.2rem;
     border-radius: 12px;
-    border: 1px solid #e0e0e0;
-    background: #ffffff;
+    /* border: 1px solid #000000; */
+    background: hsla(68, 100%, 55%, 0.699);
     color: #333333;
     font-weight: 600;
     font-size: 1rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    transition: all var(--transition);
-    cursor: pointer;
     text-decoration: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all var(--transition-fast);
+    cursor: pointer;
 }
 
 .dealer-login-btn i {
     font-size: 1.1em;
     color: #333333;
+    transition: color var(--transition-fast);
+}
+
+.dealer-login-btn .login-icon {
+    width: 16px;
+    height: 16px;
+    stroke: #333333;
+    fill: none;
+    transition: stroke var(--transition-fast);
 }
 
 .dealer-login-btn:hover,
@@ -237,136 +354,83 @@ body {
     color: #222222;
 }
 
-/* Icon-only version for non-home pages */
-.dealer-login-btn.icon-only {
-    padding: 0.5rem 0.7rem;
-    font-size: 1.2rem;
+.dealer-login-btn:hover .login-icon,
+.dealer-login-btn:active .login-icon {
+    stroke: #222222;
 }
 
-.dealer-login-btn.icon-only span,
-.dealer-login-btn.icon-only .dealer-login-text {
-    display: none;
-}
 
-/* Hamburger Menu */
-.hamburger-menu {
-    display: none;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 30px;
-    height: 25px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    z-index: var(--z-hamburger);
-}
 
-.hamburger-menu span {
-    width: 100%;
-    height: 3px;
-    background: var(--text-floating);
-    border-radius: 2px;
-    transition: all var(--transition);
-    transform-origin: center;
-}
-
-.hamburger-menu.active span:nth-child(1) {
-    transform: rotate(45deg) translate(6px, 6px);
-}
-
-.hamburger-menu.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.hamburger-menu.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
-}
-
-/* Mobile Navigation */
-.mobile-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: transparent;
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    z-index: var(--z-mobile-nav);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transform: translateX(-100%);
-    transition: transform var(--transition);
-}
-
-.mobile-nav.active {
-    transform: translateX(0);
-}
-
-.mobile-nav .nav-link {
-    font-size: 1.5rem;
-    padding: 1rem 2rem;
-    margin: 0.5rem 0;
-    border-radius: 1rem;
-    text-align: center;
-    min-width: 200px;
-    transition: background-color var(--transition);
-}
-
-.mobile-nav .nav-link:hover,
-.mobile-nav .nav-link:focus {
-    background-color: hsl(65, 7%, 31%);
-    color: white;
-}
-
-/* =========================================
-   5. UTILITIES & HELPERS
-   General purpose classes
-   ========================================= */
+/* === UTILITY CLASSES === */
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1rem;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 /* =========================================
-   6. RESPONSIVE DESIGN
-   Mobile-first approach
+   6. RESPONSIVE DESIGN SYSTEM
+   Mobile-first approach with clear breakpoints
    ========================================= */
 
-/* Tablet and up */
-@media (min-width: 721px) {
-    .nav {
+/* =========================================
+   MOBILE DEVICES (320px - 767px)
+   Primary mobile experience
+   ========================================= */
+@media (max-width: 767px) {
+
+    /* === MOBILE HEADER ADJUSTMENTS === */
+    .header {
+        top: 0.25rem;
+        left: 0.25rem;
+        right: 0.25rem;
+        /* Enhanced backdrop blur for better mobile visibility */
+        backdrop-filter: blur(30px) !important;
+        -webkit-backdrop-filter: blur(30px) !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    }
+
+    /* Enhanced floating state on mobile */
+    .header.floating {
+        top: 0.25rem;
+        left: 0.25rem;
+        right: 0.25rem;
+        /* Keep same positioning as non-floating state */
+        background: rgba(255, 255, 255, 0.15) !important;
+        backdrop-filter: blur(30px) !important;
+        -webkit-backdrop-filter: blur(30px) !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    /* === MOBILE NAVIGATION === */
+    .hamburger-menu {
         display: flex;
+        /* Show hamburger on mobile */
+    }
+
+    .nav {
+        display: none;
+        /* Hide primary nav on mobile */
     }
 
     .logo {
-        display: block;
-    }
-
-    .hamburger-menu {
         display: none;
-    }
-}
-
-/* Mobile */
-@media (max-width: 720px) {
-    .nav {
-        display: none;
-        gap: 1rem;
+        /* Hide logo on mobile */
     }
 
-    .logo {
-        display: none;
-    }
-
-    .hamburger-menu {
-        display: flex;
-    }
-
+    /* === MOBILE BUTTON ADJUSTMENTS === */
     .header-cta {
         gap: 0.5rem;
     }
@@ -376,57 +440,248 @@ body {
         font-size: 0.9rem;
     }
 
-    /* Adjust floating state for mobile */
-    .header.floating {
-        left: 0.75rem;
-        right: 0.75rem;
-        top: 0.75rem;
-    }
-
-    /* Body padding for mobile */
-    body {
-        padding-top: calc(var(--header-h) + 0.5rem);
-    }
-}
-
-/* Small mobile */
-@media (max-width: 480px) {
-    .header {
-        top: 0.25rem;
-        left: 0.25rem;
-        right: 0.25rem;
-    }
-
-    .header.floating {
-        left: 0.5rem;
-        right: 0.5rem;
-        top: 0.5rem;
-    }
-
-    .nav-link {
-        padding: 0.4rem 0.7rem;
-        font-size: 0.9rem;
-    }
-
+    /* Mobile-specific dealer login styling */
     .dealer-login-btn {
+        background: rgba(20, 73, 25, 0.397);
+        border-color: rgb(0, 0, 0);
+        color: var(--white);
         padding: 0.4rem 0.9rem;
         font-size: 0.95rem;
     }
 
-    .dealer-login-btn.icon-only {
-        padding: 0.4rem 0.6rem;
+    .dealer-login-btn .login-icon {
+        stroke: var(--white)
     }
+
+    .dealer-login-btn:hover,
+    .dealer-login-btn:active {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.5);
+        color: var(--white);
+    }
+
+    .dealer-login-btn:hover .login-icon,
+    .dealer-login-btn:active .login-icon {
+        stroke: var(--white);
+    }
+
+
 }
 
-/* Larger screens */
-@media (min-width: 1200px) {
+/* =========================================
+   TABLET DEVICES (768px - 1023px)
+   Enhanced tablet experience
+   ========================================= */
+@media (min-width: 768px) and (max-width: 1023px) {
+
+    /* === TABLET HEADER POSITIONING === */
     .header {
-        left: 5%;
-        right: 5%;
+        top: 0.5rem;
+        left: 1rem;
+        right: 1rem;
     }
 
     .header.floating {
-        left: 8%;
-        right: 8%;
+        top: 1rem;
+        left: 1.5rem;
+        right: 1.5rem;
+    }
+
+    /* === TABLET NAVIGATION === */
+    .hamburger-menu {
+        display: none;
+        /* Hide hamburger on tablet */
+    }
+
+    .nav {
+        display: flex;
+        /* Show primary nav on tablet */
+        gap: 1.5rem;
+        /* Slightly tighter spacing */
+    }
+
+    .logo {
+        display: flex;
+        /* Show logo on tablet */
+    }
+
+    /* === TABLET COMPONENT SIZING === */
+    .nav-link {
+        padding: 0.5rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    .dealer-login-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.95rem;
+        background: var(--white);
+        border-color: #e0e0e0;
+        color: #333333;
+    }
+
+    .broker-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.95rem;
+    }
+}
+
+/* =========================================
+   DESKTOP DEVICES (1024px - 1279px)
+   Full desktop experience
+   ========================================= */
+@media (min-width: 1024px) and (max-width: 1279px) {
+
+    /* === DESKTOP HEADER POSITIONING === */
+    .header {
+        top: 0.75rem;
+        left: 2rem;
+        right: 2rem;
+    }
+
+    .header.floating {
+        top: 1.5rem;
+        left: 3rem;
+        right: 3rem;
+    }
+
+    /* === DESKTOP NAVIGATION === */
+    .hamburger-menu {
+        display: none;
+        /* Hide hamburger on desktop */
+    }
+
+    .nav {
+        display: flex;
+        /* Show primary nav on desktop */
+        gap: var(--nav-gap);
+    }
+
+    .logo {
+        display: flex;
+        /* Show logo on desktop */
+    }
+
+    /* === DESKTOP COMPONENT SIZING === */
+    .nav-link {
+        padding: 0.6rem 1.2rem;
+        font-size: 1rem;
+    }
+
+    .dealer-login-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 1rem;
+    }
+
+    .broker-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 1rem;
+    }
+
+    .header-cta {
+        gap: 1rem;
+    }
+}
+
+/* =========================================
+   LARGE DESKTOP (1280px+)
+   Premium desktop experience
+   ========================================= */
+@media (min-width: 1280px) {
+
+    /* === LARGE DESKTOP HEADER === */
+    .header {
+        top: 1rem;
+        left: 3rem;
+        right: 3rem;
+    }
+
+    .header.floating {
+        top: 2rem;
+        left: 4rem;
+        right: 4rem;
+    }
+
+    /* === LARGE DESKTOP NAVIGATION === */
+    .hamburger-menu {
+        display: none;
+        /* Hide hamburger on large desktop */
+    }
+
+    .nav {
+        display: flex;
+        /* Show primary nav on large desktop */
+        gap: 2.5rem;
+        /* Generous spacing for large screens */
+    }
+
+    .logo {
+        display: flex;
+        /* Show logo on large desktop */
+    }
+
+    /* === LARGE DESKTOP COMPONENT SIZING === */
+    .nav-link {
+        padding: 0.7rem 1.4rem;
+        font-size: 1.1rem;
+    }
+
+    .dealer-login-btn {
+        padding: 0.7rem 1.4rem;
+        font-size: 1.1rem;
+    }
+
+    .broker-btn {
+        padding: 0.7rem 1.4rem;
+        font-size: 1.1rem;
+    }
+
+    .header-cta {
+        gap: 1.25rem;
+    }
+}
+
+/* =========================================
+   7. ACCESSIBILITY & PERFORMANCE
+   Focus states and optimizations
+   ========================================= */
+
+/* === FOCUS MANAGEMENT === */
+.nav-link:focus-visible,
+.dealer-login-btn:focus-visible,
+.broker-btn:focus-visible,
+.cart-btn:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.hamburger-menu:focus-visible {
+    outline: 2px solid var(--white);
+    outline-offset: 2px;
+}
+
+/* === REDUCED MOTION === */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* === HIGH CONTRAST MODE === */
+@media (prefers-contrast: high) {
+    .header {
+        border: 2px solid currentColor;
+    }
+
+    .nav-link:hover,
+    .dealer-login-btn:hover,
+    .broker-btn:hover {
+        background: currentColor;
+        color: var(--white);
     }
 }

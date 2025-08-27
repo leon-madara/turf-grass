@@ -1,31 +1,190 @@
-/* =========================================
-   TOAST
-========================================= */
-.toast {
+/* Toast Notification Styles */
+.toast-container {
     position: fixed;
-    right: 16px;
-    bottom: 16px;
-    z-index: 1200;
-    min-width: 220px;
-    max-width: 360px;
-    padding: .75rem 1rem;
-    border-radius: .75rem;
-    background: rgba(0, 0, 0, .7);
-    color: #fff;
-    box-shadow: var(--shadow-1);
-    display: none;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+    pointer-events: none;
 }
 
-.toast.is-visible {
-    display: block;
+.toast-notification {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: auto;
+    border-left: 4px solid #6b7280;
+    max-width: 100%;
+}
+
+.toast-notification.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.toast-notification.hiding {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+/* Toast Types */
+.toast-notification.success {
+    border-left-color: #10b981;
+}
+
+.toast-notification.success .toast-header i {
+    color: #10b981;
+}
+
+.toast-notification.error {
+    border-left-color: #dc2626;
+}
+
+.toast-notification.error .toast-header i {
+    color: #dc2626;
+}
+
+.toast-notification.warning {
+    border-left-color: #f59e0b;
+}
+
+.toast-notification.warning .toast-header i {
+    color: #f59e0b;
+}
+
+.toast-notification.info {
+    border-left-color: #3b82f6;
+}
+
+.toast-notification.info .toast-header i {
+    color: #3b82f6;
+}
+
+/* Toast Header */
+.toast-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.toast-header i {
+    font-size: 1.125rem;
+    flex-shrink: 0;
 }
 
 .toast-title {
-    font-weight: 800;
-    display: block;
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 0.875rem;
+    flex: 1;
 }
 
-.toast-description {
-    opacity: .9;
-    font-size: .9rem;
+.toast-close {
+    background: none;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.toast-close:hover {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.toast-close i {
+    font-size: 0.875rem;
+}
+
+/* Toast Message */
+.toast-message {
+    color: #6b7280;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .toast-container {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+
+    .toast-notification {
+        max-width: none;
+        margin-bottom: 0.25rem;
+    }
+}
+
+/* Animation for multiple toasts */
+.toast-notification:nth-child(1) {
+    transition-delay: 0ms;
+}
+
+.toast-notification:nth-child(2) {
+    transition-delay: 50ms;
+}
+
+.toast-notification:nth-child(3) {
+    transition-delay: 100ms;
+}
+
+.toast-notification:nth-child(4) {
+    transition-delay: 150ms;
+}
+
+.toast-notification:nth-child(5) {
+    transition-delay: 200ms;
+}
+
+/* Hover effects */
+.toast-notification:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    transform: translateX(0) translateY(-2px);
+}
+
+/* Accessibility */
+.toast-notification:focus-within {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .toast-notification {
+        border: 2px solid #000;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .toast-notification {
+        transition: none;
+    }
+
+    .toast-notification.show {
+        transform: none;
+        opacity: 1;
+    }
+
+    .toast-notification.hiding {
+        transform: none;
+        opacity: 0;
+    }
 }
